@@ -160,6 +160,7 @@ img,svg{display:block; max-width:100%}
 .big{font-size:clamp(2rem,6.2vw,3.4rem); line-height:1.42}
 .body{font-weight:300; line-height:2.15; font-size:clamp(.98rem,1.4vw,1.08rem); word-break:auto-phrase; text-wrap:pretty}
 .body .s{display:block}            /* 物語は一文ずつ静かに改行 */
+.lb{display:inline}                /* 指定位置での改行：全画面で表示（各文は幅の狭いカラム内なのでPCでも自然） */
 .qq,.afterglow__msg,.hero__sub,.vstate p,.vstate .lead{word-break:auto-phrase; text-wrap:pretty}
 .body + .body{margin-top:1.7em}
 .spacer-lg{height:clamp(30px,6vw,54px)}
@@ -224,6 +225,8 @@ img,svg{display:block; max-width:100%}
 .hero__sub{margin-top:clamp(26px,4vw,40px); line-height:2.2; color:var(--ink-light-soft); font-weight:300; font-size:clamp(.92rem,1.6vw,1.05rem)}
 .hero__sub b{display:block; color:var(--ink-light); font-weight:400; margin-bottom:1.1em; letter-spacing:.14em; font-size:1.05em}
 .hero__cta{margin-top:clamp(38px,6vw,56px)}
+.hero__benefit{margin-top:clamp(16px,2.6vw,24px); color:var(--ink-light); font-weight:300; font-size:clamp(.9rem,1.5vw,1.02rem); line-height:1.95; letter-spacing:.07em}
+.hero__linenote{margin-top:14px; font-size:.7rem; letter-spacing:.14em; line-height:1.7; color:var(--ink-light-soft); opacity:.82}
 .hero__scroll{position:absolute; left:50%; bottom:30px; transform:translateX(-50%); font-size:.6rem; letter-spacing:.4em; color:var(--ink-light-soft); opacity:0; animation:scrollIn 1.6s ease 8.2s forwards}
 @keyframes scrollIn{to{opacity:.8}}
 .hero__scroll i{display:block; width:1px; height:44px; margin:12px auto 0; background:linear-gradient(rgba(234,241,248,.7),transparent); animation:fall 2.6s ease-in-out infinite}
@@ -233,6 +236,7 @@ img,svg{display:block; max-width:100%}
 .hero__inner>*:nth-child(3){animation-delay:5.7s}
 .hero__inner>*:nth-child(4){animation-delay:6.6s}
 .hero__inner>*:nth-child(5){animation-delay:7.4s}
+.hero__inner>*:nth-child(6){animation-delay:8s}
 @keyframes rise{to{opacity:1; transform:none}}
 @keyframes fall{0%,100%{opacity:.2; transform:scaleY(.4)}50%{opacity:.9; transform:scaleY(1)}}
 @media (prefers-reduced-motion: reduce){ .hero__inner>*{opacity:1; transform:none; animation:none} .hero__scroll{opacity:.8; animation:none} .hero__scroll i{animation:none} }
@@ -273,13 +277,16 @@ img,svg{display:block; max-width:100%}
 .quiz__dots i{width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.25); transition:.5s ease}
 .quiz__dots i.on{background:var(--dawn); box-shadow:0 0 14px var(--dawn); transform:scale(1.15)}
 .quiz__dots i.done{background:rgba(220,234,243,.7)}
+.quiz__count{font-family:var(--serif); font-size:.82rem; letter-spacing:.28em; color:var(--dawn); opacity:.85; margin-bottom:clamp(20px,3vw,28px)}
+.quiz__count b{font-weight:400; font-size:1.1em}
+.quiz__count span{opacity:.55; margin:0 .5em}
 .qtrack{position:relative; min-height:360px}
 .qslide{position:absolute; inset:0; opacity:0; visibility:hidden; transform:translateY(24px); transition:opacity .9s ease, transform .9s cubic-bezier(.19,1,.22,1); pointer-events:none}
 .qslide.active{opacity:1; visibility:visible; transform:none; pointer-events:auto; position:relative}
 .qslide .qn{font-family:var(--serif); font-size:.86rem; letter-spacing:.34em; color:var(--dawn); opacity:.85}
 .qslide .qq{font-family:var(--serif); font-weight:400; font-size:clamp(1.3rem,4vw,1.9rem); line-height:1.6; margin:1em auto clamp(34px,5vw,50px); max-width:22ch; text-shadow:0 2px 30px rgba(8,14,28,.4)}
 .opts{display:flex; flex-direction:column; gap:14px; max-width:520px; margin-inline:auto; text-align:left}
-.opt{position:relative; display:flex; align-items:center; gap:1em; cursor:pointer; overflow:hidden;
+.opt{position:relative; display:flex; align-items:center; gap:1em; cursor:pointer; overflow:hidden; min-height:52px;
   padding:1.15em 1.4em; border-radius:14px; border:1px solid rgba(255,255,255,.18);
   background:rgba(255,255,255,.05); backdrop-filter:blur(10px) saturate(1.2); transition:.45s cubic-bezier(.19,1,.22,1)}
 .opt::after{content:""; position:absolute; inset:0; border-radius:inherit; opacity:0; transition:opacity .7s ease; pointer-events:none;
@@ -304,6 +311,8 @@ img,svg{display:block; max-width:100%}
   padding:clamp(22px,3.2vw,30px) 0; border-bottom:1px solid var(--hair-dark)}
 .gift__i{font-family:var(--serif); letter-spacing:.1em; color:var(--indigo); font-size:.9rem}
 .gift__t{font-size:1.04rem; font-weight:300; letter-spacing:.05em; color:var(--ink-dark)}
+.gift__sub{display:block; margin-top:.5em; font-size:.78rem; letter-spacing:.06em; opacity:.72; font-weight:300}
+.gift__lead{font-weight:300; line-height:2.05; font-size:clamp(.88rem,1.3vw,.96rem); letter-spacing:.04em; margin-top:clamp(22px,3.4vw,30px)}
 
 .about{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(36px,6vw,80px); align-items:center}
 .figure{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/5; box-shadow:0 50px 90px -50px rgba(46,60,84,.55)}
@@ -351,7 +360,7 @@ img,svg{display:block; max-width:100%}
 .footer__mark{font-family:var(--serif); font-size:1.7rem; letter-spacing:.36em; color:#fff}
 .footer__mk-sub{margin-top:1.4em; max-width:30ch; line-height:2.1; color:#8b94a2; font-weight:300; font-size:.9rem}
 .footer__nav{display:grid; grid-template-columns:1fr 1fr; gap:12px 40px}
-.footer__nav a{color:#c2cad6; font-size:.86rem; letter-spacing:.1em; opacity:.82; transition:.35s; padding:.2em 0}
+.footer__nav a{color:#c2cad6; font-size:.86rem; letter-spacing:.1em; opacity:.82; transition:.35s; padding:.2em 0; white-space:nowrap}
 .footer__nav a:hover{opacity:1; letter-spacing:.2em}
 .footer__panels{display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,5vw,56px); margin-top:clamp(56px,8vw,88px)}
 .f-h{font-family:var(--sans); font-weight:400; font-size:.66rem; letter-spacing:.32em; text-transform:uppercase; color:#77808e; margin-bottom:18px}
@@ -512,10 +521,22 @@ img,svg{display:block; max-width:100%}
   .footer__nav{grid-template-columns:1fr}
   .qtrack{min-height:460px}
   .sound__label{display:none}
-  .hero{padding-top:118px}
-  .hero__copy{font-size:1.74rem; line-height:1.5}
-  .opt{padding:1em 1.15em}
-  .opt__tx{font-size:.92rem}
+  .hero{padding-top:104px; padding-bottom:96px}
+  .hero__rule{margin:20px auto}
+  .hero__copy{font-size:1.72rem; line-height:1.48}
+  .hero__sub{margin-top:20px; line-height:2; max-width:19em; margin-inline:auto; text-wrap:balance}
+  .hero__benefit{font-size:.92rem; margin-top:14px; max-width:19em; margin-inline:auto; text-wrap:balance}
+  .hero__cta{margin-top:26px}
+  /* 選択肢：縦並び・押しやすい高さと余白・2行に収める */
+  .opts{gap:16px}
+  .opt{min-height:52px; padding:.9em 1.15em}
+  .opt__tx{font-size:.93rem; line-height:1.6}
+  /* 診断中は背景装飾を控えめにし、読みやすさを優先 */
+  .quiz .mirror{opacity:.4}
+  .photo--quiz::after{background:linear-gradient(to bottom, rgba(12,19,34,.76), rgba(12,19,34,.68))}
+  .quiz__count{font-size:.86rem}
+  /* 固定CTA（スマホ）を押しやすく */
+  .sticky .btn{min-height:54px}
 }
 @media (max-width:400px){
   :root{--gutter:20px}
@@ -566,11 +587,13 @@ img,svg{display:block; max-width:100%}
       <h1 class="hero__copy">彼に振り回される恋愛を、<br>終わらせたいあなたへ。</h1>
       <p class="hero__sub">
         <b>恋愛から、自分へ。</b>
-        夜明け前の静かな時間が、<br>あなたを本来のあなたへ戻していく。
+        追いかけてしまう恋の奥にある、<br class="lb">あなたの現在地を<br class="lb">静かに見つめる6問診断。
       </p>
+      <p class="hero__benefit">無料6問で、<br class="lb">あなたが恋愛で苦しくなる理由と、<br class="lb">次に整えるべきポイントがわかります。</p>
       <div class="hero__cta">
         <button class="btn" data-journey type="button">恋愛フェーズ診断をはじめる</button>
         <span class="btn__note"><span>無料</span>·<span>6問</span>·<span>約1分</span></span>
+        <p class="hero__linenote">診断結果はLINEで無料配信されます</p>
       </div>
     </div>
     <div class="hero__scroll" aria-hidden="true">SCROLL<i></i></div>
@@ -583,9 +606,9 @@ img,svg{display:block; max-width:100%}
       <h2 class="title lede">彼の一言で、<br>夜が長くなる日がある。</h2>
       <div class="spacer-lg"></div>
       <p class="body measure">
-        <span class="s">返信が来ないだけで、何度もスマホを開いてしまう。</span>
-        <span class="s">本当は嫌なのに、嫌われるのが怖くて断れない。</span>
-        <span class="s">予定も、気分も、自分の価値さえも、彼の反応で決まってしまう。</span>
+        <span class="s">返信が来ないだけで、<br class="lb">何度もスマホを開いてしまう。</span>
+        <span class="s">本当は嫌なのに、<br class="lb">嫌われるのが怖くて断れない。</span>
+        <span class="s">予定も、気分も、自分の価値さえも、<br class="lb">彼の反応で決まってしまう。</span>
       </p>
       <p class="body measure soft">
         <span class="s">それは、あなたが弱いからではありません。</span>
@@ -601,8 +624,8 @@ img,svg{display:block; max-width:100%}
       <h2 class="title lede">あなたは今、<br>恋愛のどのフェーズにいますか。</h2>
       <div class="spacer-lg"></div>
       <p class="body measure soft">
-        <span class="s">Pale Hourの恋愛フェーズ診断は、今のあなたの恋愛状態を「夜から朝へ」の5段階で見つめます。</span>
-        <span class="s">診断結果は、LINE登録後に無料でお届けします。</span>
+        <span class="s">Pale Hourの恋愛フェーズ診断は、<br class="lb">今のあなたの恋愛状態を「夜から朝へ」の5段階で見つめます。</span>
+        <span class="s">診断結果はLINEで無料配信されます。登録後すぐに、あなたの恋愛フェーズ・苦しくなりやすい理由・次に整えるポイントをお届けします。</span>
       </p>
       <div class="phases">
         <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Midnight</div><div class="phase__jp">彼中心で、自分を見失いやすい時期</div></div><span class="phase__i">01</span></div>
@@ -621,6 +644,7 @@ img,svg{display:block; max-width:100%}
     <div class="wrap">
       <div class="quiz__stage">
         <div class="kicker" style="justify-content:center"><span class="eyebrow">Blue Hour — 自分を映す</span></div>
+        <div class="quiz__count" id="qcount" aria-live="polite"><b>1</b><span>/</span>6</div>
         <div class="quiz__dots" id="dots" aria-hidden="true"></div>
 
         <form class="qtrack" id="quizForm" novalidate>
@@ -710,7 +734,13 @@ img,svg{display:block; max-width:100%}
             <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">03</span><span class="gift__t" style="color:var(--ink-light)">次に整えるべきポイント</span></div>
             <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">04</span><span class="gift__t" style="color:var(--ink-light)">LINE限定 Mirror Pattern診断</span></div>
             <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">05</span><span class="gift__t" style="color:var(--ink-light)">タイプ別 無料Note</span></div>
+            <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">06</span><span class="gift__t" style="color:var(--ink-light)">Pale Hour Love Compass<small class="gift__sub">追う恋を卒業する、恋愛の教科書</small></span></div>
           </div>
+          <p class="body soft gift__lead">
+            <span class="s">診断は、入口です。</span>
+            <span class="s">まずは今の恋愛フェーズを知り、<br class="lb">次にMirror Pattern診断で<br class="lb">恋のクセを深く見つめ、<br class="lb">タイプ別無料Noteで今のあなたに必要なヒントを受け取れます。</span>
+            <span class="s">さらに必要な方には、追う恋を卒業する恋愛の教科書『Pale Hour Love Compass』へ進めます。</span>
+          </p>
         </div>
         <figure class="figure figure--journal" aria-label="海辺の朝、開いた手帳とカップ">
           <div class="figure__img" role="img" aria-label="海辺で開いた手帳とコーヒー"></div>
@@ -728,7 +758,7 @@ img,svg{display:block; max-width:100%}
           <h2 class="title">恋愛は、人生の目的ではなく、<br>自分を知る入口。</h2>
           <div class="spacer-lg"></div>
           <p class="body measure soft">
-            <span class="s">Pale Hourは、恋愛を通して自分の感情、境界線、思考の癖を見つめ直す場所です。</span>
+            <span class="s">Pale Hourは、恋愛を通して<br class="lb">自分の感情、境界線、思考の癖を見つめ直す場所です。</span>
             <span class="s">彼に選ばれるためではなく、自分の人生を自分で選ぶために。</span>
           </p>
           <div class="triad">
@@ -758,6 +788,9 @@ img,svg{display:block; max-width:100%}
         <details><summary><span><span class="qm">Q.</span>恋愛相談をしたことがなくても大丈夫ですか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>大丈夫です。まずは今の状態を知るための診断としてご利用ください。</p></div></details>
         <details><summary><span><span class="qm">Q.</span>有料サービスへの勧誘はありますか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>必要な方には、有料Noteや個別相談をご案内する場合があります。無理な案内はしません。</p></div></details>
         <details><summary><span><span class="qm">Q.</span>診断結果は正確ですか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>医学的・心理学的な診断ではありません。自分の恋愛傾向を見つめるためのセルフチェックです。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>個別相談に申し込まないといけませんか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>いいえ。診断と無料Noteだけ受け取ることもできます。必要な方にだけ、有料Noteや個別相談をご案内します。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>重い恋愛相談でも大丈夫ですか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>大丈夫です。Pale Hourは、相手を変えるためではなく、自分の感情や境界線を整えるための場所です。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>どんな人に向いていますか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>彼の返信や態度で気分が揺れやすい方、追う恋を卒業したい方、自分軸の恋愛をしたい方に向いています。</p></div></details>
       </div>
     </div>
   </section>
@@ -767,7 +800,7 @@ img,svg{display:block; max-width:100%}
     <div class="wrap">
       <div class="kicker" style="justify-content:center"><span class="eyebrow">Morning — 新しい一歩</span></div>
       <h2 class="big">夜が明ける前に、<br>自分を見つめる時間を。</h2>
-      <p class="body">恋愛に振り回される夜から、<br>私中心の朝へ。</p>
+      <p class="body">彼の反応で一日が決まってしまう恋から、自分の気持ちを選べる恋へ。まずは6問で、今のあなたの現在地を見つめてみてください。</p>
       <button class="btn btn--dark" data-journey type="button">恋愛フェーズ診断をはじめる</button>
       <p class="reassure reassure--dark">無料 · 6問 · 約1分 · しつこい勧誘はありません</p>
     </div>
@@ -791,7 +824,7 @@ img,svg{display:block; max-width:100%}
     <div class="footer__grid">
       <div>
         <div class="footer__mark">Pale Hour</div>
-        <p class="footer__mk-sub">夜明け前の、青白く澄んだ光の時間。恋愛に振り回される夜から、私中心の朝へ。</p>
+        <p class="footer__mk-sub">夜明け前の、青白く澄んだ光の時間。<br>恋愛に振り回される夜から、私中心の朝へ。</p>
       </div>
       <nav class="footer__nav" aria-label="フッターリンク">
         <a href="https://www.instagram.com/shiromomo_renai_mind/" target="_blank" rel="noopener">Instagram</a>
@@ -865,9 +898,9 @@ img,svg{display:block; max-width:100%}
     <!-- Result -->
     <div class="vstate" id="vResult">
       <p class="lead">あなたの恋愛フェーズは<br>判定されました。</p>
-      <p>結果はLINEでお届けします。</p>
+      <p>結果はLINEで無料で受け取れます。登録後すぐに、恋愛フェーズ・苦しくなる理由・次に整えるポイントをお届けします。</p>
       <!-- 最終CV：LINE。リンク差し替え -->
-      <a class="btn btn--line" href="https://lin.ee/Tr6jRUn" target="_blank" rel="noopener" data-cv="line">夜明けへの一歩を踏み出す</a>
+      <a class="btn btn--line" href="https://lin.ee/Tr6jRUn" target="_blank" rel="noopener" data-cv="line">結果をLINEで受け取る</a>
       <p class="reassure">登録は無料 · 1分で完了 · いつでもブロックできます · しつこい勧誘はありません</p>
       <button class="vclose" id="vClose" type="button">閉じる</button>
     </div>
@@ -1023,12 +1056,14 @@ img,svg{display:block; max-width:100%}
   var dotsWrap=document.getElementById('dots');
   var hint=document.getElementById('hint');
   var back=document.getElementById('back');
+  var qcount=document.getElementById('qcount');
   var TOTAL=slides.length, step=0;
   slides.forEach(function(_,i){var d=document.createElement('i'); d.dataset.i=i; dotsWrap.appendChild(d);});
   var dots=[].slice.call(dotsWrap.children);
   function render(){
     slides.forEach(function(s,i){s.classList.toggle('active',i===step);});
     dots.forEach(function(d,i){d.classList.toggle('on',i===step); d.classList.toggle('done',i<step);});
+    if(qcount){ qcount.innerHTML='<b>'+(step+1)+'</b><span>/</span>'+TOTAL; }
     back.hidden=step===0;
     var name='q'+(step+1);
     hint.textContent=form.querySelector('input[name="'+name+'"]:checked')?'':'ひとつ選ぶと、次の問いへ進みます';
