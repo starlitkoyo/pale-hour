@@ -15,6 +15,8 @@
   var lY = document.getElementById("lDay");
   var stars = document.getElementById("stars");
   var sun = document.getElementById("sun");
+  var fog = document.getElementById("fog");
+  var refl = document.getElementById("reflection");
   var header = document.getElementById("siteHeader");
   if (!lT) return;
 
@@ -33,11 +35,15 @@
     lY.style.opacity = smooth(p, 0.74, 0.92);
     stars.style.opacity = 1 - smooth(p, 0.1, 0.42);
 
-    /* 太陽が水平線から静かに昇る */
+    /* 霧＝薄明〜ブルーの時間に漂い、夜明けとともに晴れる */
+    if (fog) fog.style.opacity = smooth(p, 0.12, 0.32) * (1 - smooth(p, 0.55, 0.78)) * 0.9;
+
+    /* 太陽が水平線から静かに昇る（海面の反射も同期） */
     var rise = smooth(p, 0.5, 0.9);
     sun.style.opacity = rise * 0.9;
     sun.style.transform =
       "translate(-50%, " + (26 - rise * 30) + "vh)";
+    if (refl) refl.style.opacity = rise * 0.75;
 
     /* 文字・ヘッダーの色モード：夜明け以降は濃紺の文字へ */
     var day = p > 0.52;
