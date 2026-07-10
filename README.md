@@ -41,11 +41,21 @@ Home専用: `assets/css/home.css` + `assets/js/home.js`（空の演出）
 | ファイル | 使用箇所 | 推奨比率 |
 |---|---|---|
 | `hero/hero-dawn.jpg` | Home Hero・OGP | 16:9（横長） |
-| `concept/still-morning.jpg` | Home Concept・Journalサムネ | 4:5（縦） |
-| `common/woman-shore.jpg` | About・Journalサムネ | 4:5（縦・人物は後ろ姿） |
-| `common/sea-calm.jpg` | 記事ヒーロー・CTA帯 | 16:9 |
-| `common/sea-mist.jpg` | FAQ/Contact背景・CTA帯 | 16:9 |
-| `common/sea-sunrise.jpg` | CTA帯・Journalサムネ | 4:3 |
+| `common/woman-shore.jpg` | About Brand Story | 4:5（縦・人物は後ろ姿） |
+| `common/sea-calm.jpg` | Program CTA帯 | 16:9 |
+| `common/sea-mist.jpg` | Voice CTA帯 | 16:9 |
+| `common/sea-sunrise.jpg` | About/FAQ CTA帯 | 4:3 |
+| `common/night-bedside.jpg` | 注目記事サムネ・記事ヒーロー・記事OGP（返信が来ない夜） | 3:2 |
+| `common/beach-walk.jpg` | Journalサムネ（Love） | 4:5（縦） |
+| `common/morning-curtain.jpg` | Journalサムネ（Self） | 4:5（縦） |
+| `common/white-flower.jpg` | Journalサムネ（Life） | 4:5（縦） |
+| `common/desk-sunrise.jpg` | Journalサムネ（Career） | 3:2 |
+| `common/morning-mug.jpg` | Home Concept | 4:5（縦） |
+| `common/night-sea-moon.jpg` | About写真帯・Journal CTA帯 | 16:9 |
+| `common/linen-texture.jpg` | Home FAQ/Contact背景 | 16:9 |
+| `concept/still-morning.jpg` | （現在未使用・予備） | 4:5（縦） |
+
+※ 2026-07-11追加の8枚（night-bedside〜linen-texture）は生成画像。元PNG＝`Pale_Hour_LP\ChatGPT Image 2026年7月11日 *.png`。
 
 ※ `/diagnosis/` 内のjpg（Hero_firstview.jpg等）はLP専用。LPは相対パスで参照しているため削除しない。
 
