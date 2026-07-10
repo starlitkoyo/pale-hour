@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Pale Hour favicon — 水平線と昇る光（Deep Indigo × Pale Blue） -->
+  <rect width="64" height="64" rx="14" fill="#263A57"/>
+  <g fill="none" stroke="#DCEAF3" stroke-width="2.2" stroke-linecap="round">
+    <!-- 水平線 -->
+    <path d="M12 40h40"/>
+    <!-- 昇る太陽（半円） -->
+    <path d="M23 40a9 9 0 0 1 18 0"/>
+    <!-- 光線 -->
+    <path d="M32 22v5"/>
+    <path d="M20.5 26.5l3.5 3.5"/>
+    <path d="M43.5 26.5l-3.5 3.5"/>
+    <!-- 海面の反射 -->
+    <path d="M26 47.5h12" opacity=".5"/>
+    <path d="M29 52.5h6" opacity=".3"/>
+  </g>
+</svg>
