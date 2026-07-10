@@ -630,7 +630,7 @@ img,svg{display:block; max-width:100%}
       <div class="phases">
         <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Midnight</div><div class="phase__jp">彼中心で、自分を見失いやすい時期</div></div><span class="phase__i">01</span></div>
         <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">First Light</div><div class="phase__jp">苦しさの理由に気づき始める時期</div></div><span class="phase__i">02</span></div>
-        <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Blue Hour</div><div class="phase__jp">自分を取り戻す途中の時期</div></div><span class="phase__i">03</span></div>
+        <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Turning Tide</div><div class="phase__jp">自分を取り戻す方向へ、流れが変わり始める時期</div></div><span class="phase__i">03</span></div>
         <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Sunrise</div><div class="phase__jp">境界線を持ち、自分の気持ちを選び始める時期</div></div><span class="phase__i">04</span></div>
         <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Morning Tide</div><div class="phase__jp">恋愛も人生も、自分軸で選べる時期</div></div><span class="phase__i">05</span></div>
       </div>
@@ -643,7 +643,7 @@ img,svg{display:block; max-width:100%}
     <div class="mirror" aria-hidden="true"></div>
     <div class="wrap">
       <div class="quiz__stage">
-        <div class="kicker" style="justify-content:center"><span class="eyebrow">Blue Hour — 自分を映す</span></div>
+        <div class="kicker" style="justify-content:center"><span class="eyebrow">Turning Tide — 自分を映す</span></div>
         <div class="quiz__count" id="qcount" aria-live="polite"><b>1</b><span>/</span>6</div>
         <div class="quiz__dots" id="dots" aria-hidden="true"></div>
 
@@ -1090,9 +1090,9 @@ img,svg{display:block; max-width:100%}
     var c={A:0,B:0,C:0,D:0};
     form.querySelectorAll('input:checked').forEach(function(i){c[i.value]++;});
     var best='A',mx=-1; ['A','B','C','D'].forEach(function(k){if(c[k]>mx){mx=c[k];best=k;}});
-    return {A:'Midnight',B:'First Light',C:'Blue Hour',D:'Sunrise / Morning Tide'}[best];
+    return {A:'Midnight',B:'First Light',C:'Turning Tide',D:'Sunrise / Morning Tide'}[best];
   }
-  var PHASES=['Midnight','First Light','Blue Hour','Sunrise','Morning Tide'];
+  var PHASES=['Midnight','First Light','Turning Tide','Sunrise','Morning Tide'];
   var vName=document.getElementById('vName');
   function runNames(done){
     showState('names');
