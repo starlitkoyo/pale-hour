@@ -2,56 +2,560 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pale Hour｜恋愛から、自分へ</title>
-<meta name="description" content="Pale Hour（ペイルアワー）は、恋愛の悩みを入口に、自分の感情・境界線・思考の癖を見つめ直し、自分らしい人生の選択へつなげる恋愛コンサルティングブランドです。">
-<meta name="theme-color" content="#0E1524">
-<link rel="icon" type="image/svg+xml" href="assets/images/common/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/images/common/favicon-32.png">
-<link rel="apple-touch-icon" href="assets/images/common/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pale Hour｜夜明け前の、青白く澄んだ光の時間。恋愛に振り回される夜から、私中心の朝へ。">
+<meta name="theme-color" content="#0e1524">
 
-<!-- ▼ OGP（独自ドメイン pale-hour.com へ切替時は og:url / og:image / canonical を差し替え） -->
+<!-- ▼③ OGP / SNSシェア（公開ドメイン確定後、og:url と og:image を「絶対URL」に差し替え） -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Pale Hour">
-<meta property="og:title" content="Pale Hour｜恋愛から、自分へ">
-<meta property="og:description" content="夜明け前の静かな時間が、あなたを本来のあなたへ戻していく。恋愛コンサルティングブランド Pale Hour 公式サイト。">
+<meta property="og:title" content="Pale Hour｜恋愛から、自分へ。">
+<meta property="og:description" content="夜明け前の静かな時間が、あなたを本来のあなたへ戻していく。無料の恋愛フェーズ診断。">
 <meta property="og:url" content="https://pale-hour.vercel.app/">
-<meta property="og:image" content="https://pale-hour.vercel.app/assets/images/hero/hero-dawn.jpg">
+<meta property="og:image" content="https://pale-hour.vercel.app/Hero_firstview.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://pale-hour.vercel.app/">
+<meta name="twitter:title" content="Pale Hour｜恋愛から、自分へ。">
+<meta name="twitter:description" content="夜明け前の静かな時間が、あなたを本来のあなたへ戻していく。">
+<meta name="twitter:image" content="https://pale-hour.vercel.app/Hero_firstview.jpg">
 
-<!-- ▼ GA4（診断LPと同じ測定ID） -->
+<!-- ▼② 計測タグ（各IDを入れてコメント解除で有効化。LINE登録CVは data-cv="line" のクリックで自動送信） -->
+<!-- GA4（有効・測定ID G-3JX694XHFT） -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3JX694XHFT"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3JX694XHFT');</script>
+<!-- Meta Pixel（fbevents）: 公式スニペットを貼り付け、fbq('init','PIXEL_ID'); fbq('track','PageView'); -->
+<!-- LINE Tag（_lt / LINE広告）: 公式ベースコードを貼り付け -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Shippori+Mincho:wght@500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/common.css">
-<link rel="stylesheet" href="assets/css/home.css">
-
-<!-- ▼ 構造化データ（実在情報のみ。所在地・電話などは記載しない） -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Pale Hour",
-  "url": "https://pale-hour.vercel.app/",
-  "description": "恋愛の悩みを入口に、自分の感情・境界線・思考の癖を見つめ直し、自分らしい人生の選択へつなげる恋愛コンサルティングブランド。",
-  "sameAs": ["https://www.instagram.com/shiromomo_renai_mind/"]
+<title>Pale Hour</title>
+<!--
+  ▸ フォント：端末標準の明朝／ゴシックで上品に表示（外部依存なし）。
+    さらに洗練させたい場合のみ、任意で <head> に追記：
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+  ▸ コピー・リンク・画像はすべてHTMLテキスト／該当コメントで差し替え可能。
+  ▸ Aboutの女性ビジュアルは inline SVG（差し替え用の <img> スロット案内あり）。
+  ▸ 環境音は Web Audio で波と風を合成（音源ファイル不要）。既定OFF。
+-->
+<style>
+/* ============================================================================
+   PALE HOUR — tokens
+   ========================================================================== */
+:root{
+  --bg:#0e1524;
+  --pale:#DCEAF3; --indigo:#3E5575; --fog:#D8DEE5; --charcoal:#2F3540; --white:#fff;
+  --dawn:#ecd8ba; --dawn-warm:#f4e6cf;
+  --ink-light:#eaf1f8; --ink-light-soft:#c4d1de;
+  --ink-dark:#2c3340; --ink-dark-soft:#54606f;
+  --hair-light:rgba(255,255,255,.22); --hair-dark:rgba(46,60,84,.16);
+  --serif:"Cormorant Garamond", Georgia, "Times New Roman", "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --sans:"Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --gutter:clamp(22px,6vw,72px);
+  --maxw:1160px;
+  color-scheme:dark;
 }
-</script>
-</head>
-<body class="page-home">
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink-light);
+  font-family:var(--sans); font-weight:300; line-height:2.05; letter-spacing:.045em;
+  font-size:clamp(15px,.55vw + 13px,17px);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  word-break:auto-phrase; text-wrap:pretty;   /* 和文を文節で自然に折り返す（LP全体） */
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--serif); font-weight:500; line-height:1.4; letter-spacing:.02em; margin:0; text-wrap:balance; word-break:auto-phrase}
+p{margin:0}
+a{color:inherit; text-decoration:none}
+img,svg{display:block; max-width:100%}
+:focus-visible{outline:1.5px solid currentColor; outline-offset:4px}
+::selection{background:rgba(220,234,243,.3)}
 
-<!-- ============ 夜→朝へ変化する空（確定演出・変更しない） ============ -->
+.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gutter)}
+.eyebrow{font-family:var(--sans); font-weight:400; font-size:.7rem; letter-spacing:.4em; text-transform:uppercase}
+.en{font-family:var(--serif); letter-spacing:.08em}
+
+/* ============================================================================
+   FIXED ATMOSPHERE — 空と海（スクロールで夜→朝へ）
+   ========================================================================== */
+.sky{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; background:#0b1220}
+.sky__layer{position:absolute; inset:0; will-change:opacity}
+.l-night{opacity:1;    background:linear-gradient(to bottom,#0d1422 0%,#131d30 22%,#1b2740 40%,#243350 54%,#2b3a56 60%,#334260 61.5%,#213047 62.6%,#121b2d 78%,#0b1120 100%)}
+.l-twilight{opacity:0; background:linear-gradient(to bottom,#1a2134 0%,#243350 24%,#35496b 44%,#4a6389 56%,#6a85a6 61%,#93aac6 62.4%,#4d6488 63.6%,#2d3f5e 80%,#1c2942 100%)}
+.l-blue{opacity:0;     background:linear-gradient(to bottom,#2c3f5f 0%,#3E5575 26%,#5c789f 48%,#89a5c4 58%,#b3cade 61.4%,#d6e5f0 62.6%,#8099bd 64%,#4a6489 80%,#33486a 100%)}
+.l-dawn{opacity:0;     background:linear-gradient(to bottom,#4b5a78 0%,#7f8ca4 24%,#b3b2ad 44%,#d8c3a6 55%,#e7d3b4 60.4%,#f5e7d0 62.4%,#ceba9f 64%,#8a93a6 80%,#606f8c 100%)}
+.l-day{opacity:0;      background:linear-gradient(to bottom,#aac3db 0%,#c8daeb 24%,#e6eff7 46%,#f2ede2 58%,#f8f2e8 61.4%,#dde8f1 63.4%,#c3d5e6 76%,#abc2d9 100%)}
+
+.sky__stars{position:absolute; inset:0 0 40% 0;
+  background-image:radial-gradient(1.2px 1.2px at 12% 20%,rgba(255,255,255,.9),transparent 60%),
+    radial-gradient(1px 1px at 28% 12%,rgba(255,255,255,.7),transparent 60%),
+    radial-gradient(1.4px 1.4px at 46% 26%,rgba(255,255,255,.85),transparent 60%),
+    radial-gradient(1px 1px at 63% 9%,rgba(255,255,255,.6),transparent 60%),
+    radial-gradient(1.2px 1.2px at 78% 22%,rgba(255,255,255,.8),transparent 60%),
+    radial-gradient(1px 1px at 88% 14%,rgba(255,255,255,.55),transparent 60%),
+    radial-gradient(1px 1px at 36% 6%,rgba(255,255,255,.5),transparent 60%),
+    radial-gradient(1.1px 1.1px at 55% 18%,rgba(255,255,255,.7),transparent 60%);
+  opacity:1}
+.sky__star-twinkle{animation:twinkle 6s ease-in-out infinite}
+
+.sky__fog{position:absolute; left:-20%; right:-20%; top:50%; height:26vh; opacity:0;
+  background:radial-gradient(60% 100% at 50% 50%, rgba(210,222,229,.5), transparent 70%);
+  filter:blur(6px); animation:drift 26s ease-in-out infinite}
+
+.sky__sun{position:absolute; left:50%; top:62%; width:min(46vw,340px); aspect-ratio:1;
+  transform:translate(-50%,26vh); opacity:0; will-change:transform,opacity;
+  background:radial-gradient(circle at 50% 50%, var(--dawn-warm) 0 14%, rgba(244,223,184,.5) 30%, rgba(244,223,184,0) 62%)}
+
+.sky__horizon{position:absolute; left:0; right:0; top:62%; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(246,238,224,.75) 50%,transparent); opacity:.5; animation:hzbreathe 8s ease-in-out infinite}
+.sky__reflection{position:absolute; left:50%; top:62%; width:min(30vw,230px); height:34vh; transform:translateX(-50%); opacity:0;
+  background:linear-gradient(to bottom, rgba(246,238,224,.5), rgba(246,238,224,0) 80%);
+  filter:blur(3px); mask-image:repeating-linear-gradient(to bottom, #000 0 3px, transparent 3px 8px); animation:refsway 12s ease-in-out infinite}
+.sky__sea{position:absolute; left:-20%; right:-20%; top:63%; bottom:0;
+  background:repeating-linear-gradient(90deg, rgba(255,255,255,.045) 0 2px, transparent 2px 10px);
+  mask-image:linear-gradient(to bottom, transparent, #000 30%, transparent);
+  opacity:.5; animation:seashift 18s linear infinite, wavebob 8s ease-in-out infinite}
+.sky__shore{position:absolute; left:0; right:0; bottom:0; height:16vh; z-index:1; pointer-events:none;
+  background:linear-gradient(to top, rgba(13,19,33,.42), rgba(13,19,33,.1) 55%, transparent); mask-image:linear-gradient(to top,#000 60%,transparent)}
+.sky__foam{position:absolute; left:-10%; right:-10%; bottom:13vh; height:2px; z-index:1; pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(226,236,244,.5),rgba(255,255,255,.34),rgba(226,236,244,.5),transparent);
+  filter:blur(1.2px); opacity:.55; animation:foam 9s ease-in-out infinite}
+.grain{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.035; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+
+@keyframes twinkle{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(3%)}}
+@keyframes seashift{to{background-position-x:12px}}
+@keyframes wavebob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes hzbreathe{0%,100%{opacity:.4}50%{opacity:.62}}
+@keyframes refsway{0%,100%{transform:translateX(-50%) translateX(-4px)}50%{transform:translateX(-50%) translateX(5px)}}
+@keyframes foam{0%,100%{opacity:.35; transform:translateY(0) scaleX(.97)}50%{opacity:.72; transform:translateY(-3px) scaleX(1.02)}}
+@media (prefers-reduced-motion: reduce){
+  .sky__star-twinkle,.sky__fog,.sky__sea,.sky__horizon,.sky__reflection,.sky__foam{animation:none}
+}
+
+/* ============================================================================
+   Content shell
+   ========================================================================== */
+.page{position:relative; z-index:2}
+.chapter{position:relative; padding:clamp(120px,20vh,220px) 0}
+.chapter--tall{min-height:100svh; display:flex; align-items:center}
+.lede{max-width:34ch}
+.measure{max-width:38ch}
+/* 可読性スクリム（固定の空が明るい区間でも文字が沈まないよう、ごく淡く） */
+.chapter.m-light::before,.chapter.m-dark::before{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none}
+.chapter.m-light::before{background:radial-gradient(120% 78% at 34% 46%, rgba(9,15,28,.32), rgba(9,15,28,.08) 62%, transparent 78%)}
+.chapter.m-dark::before{background:radial-gradient(120% 78% at 34% 46%, rgba(250,250,248,.5), rgba(250,250,248,.16) 60%, transparent 78%)}
+
+/* mood: light text (夜〜Blue Hour) / dark text (朝焼け〜朝) */
+.m-light{color:var(--ink-light)}
+.m-light .eyebrow{color:var(--ink-light-soft)}
+.m-light .soft{color:var(--ink-light-soft)}
+.m-dark{color:var(--ink-dark)}
+.m-dark .eyebrow{color:var(--indigo)}
+.m-dark .soft{color:var(--ink-dark-soft)}
+.m-light :where(h1,h2,h3){text-shadow:0 2px 40px rgba(10,16,30,.4)}
+
+.kicker{display:flex; align-items:center; gap:1.1em; margin-bottom:clamp(26px,4vw,40px)}
+.kicker .num{font-family:var(--serif); font-size:1rem; letter-spacing:.1em; opacity:.75}
+.kicker .rule{flex:1; height:1px; background:currentColor; opacity:.2; max-width:80px}
+.title{font-size:clamp(1.7rem,5vw,2.7rem); line-height:1.55}
+.big{font-size:clamp(2rem,6.2vw,3.4rem); line-height:1.42}
+.body{font-weight:300; line-height:2.15; font-size:clamp(.98rem,1.4vw,1.08rem); word-break:auto-phrase; text-wrap:pretty}
+.body .s{display:block}            /* 物語は一文ずつ静かに改行 */
+.lb{display:inline}                /* 指定位置での改行：全画面で表示（各文は幅の狭いカラム内なのでPCでも自然） */
+.qq,.afterglow__msg,.hero__sub,.vstate p,.vstate .lead{word-break:auto-phrase; text-wrap:pretty}
+.body + .body{margin-top:1.7em}
+.spacer-lg{height:clamp(30px,6vw,54px)}
+
+/* ============================================================================
+   NAV
+   ========================================================================== */
+.nav{position:fixed; inset:0 0 auto 0; z-index:40; display:flex; align-items:center; justify-content:space-between;
+  padding:clamp(16px,2.4vw,26px) var(--gutter); color:var(--ink-light);
+  transition:background .6s ease, color .6s ease, border-color .6s ease; border-bottom:1px solid transparent}
+.nav--solid{background:rgba(11,18,32,.5); backdrop-filter:blur(14px) saturate(1.2); border-color:rgba(255,255,255,.08)}
+.nav--day{color:var(--ink-dark)}
+.nav--day.nav--solid{background:rgba(250,250,248,.62); border-color:var(--hair-dark)}
+.nav__brand{font-family:var(--serif); font-size:1.16rem; letter-spacing:.34em; font-weight:500}
+.nav__links{display:flex; gap:clamp(18px,3vw,34px); align-items:center; font-size:.72rem; letter-spacing:.22em}
+.nav__links a{opacity:.82; transition:opacity .3s} .nav__links a:hover{opacity:1}
+.nav__pill{padding:.55em 1.2em; border:1px solid currentColor; border-radius:100px; font-size:.66rem; letter-spacing:.24em; opacity:.9}
+
+/* ============================================================================
+   Glass buttons — 海の光 / 波紋
+   ========================================================================== */
+.btn{position:relative; display:inline-flex; align-items:center; justify-content:center; gap:.7em; cursor:pointer; overflow:hidden;
+  font-family:var(--sans); font-weight:400; font-size:.86rem; letter-spacing:.2em; line-height:1;
+  padding:1.25em 2.6em; border-radius:100px; border:1px solid rgba(255,255,255,.34);
+  background:rgba(255,255,255,.07); color:var(--ink-light); backdrop-filter:blur(8px) saturate(1.3);
+  transition:border-color .5s ease, background .5s ease, transform .5s ease, box-shadow .5s ease; isolation:isolate}
+.btn::before{content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit; opacity:0;
+  background:radial-gradient(120% 140% at 50% 120%, rgba(246,238,224,.5), rgba(220,234,243,.12) 55%, transparent 75%);
+  transition:opacity .6s ease}
+.btn:hover{border-color:rgba(246,238,224,.7); transform:translateY(-2px); box-shadow:0 18px 50px -22px rgba(180,200,224,.6)}
+.btn:hover::before{opacity:1}
+.btn .ripple{position:absolute; border-radius:50%; transform:translate(-50%,-50%) scale(0); pointer-events:none;
+  background:radial-gradient(circle, rgba(246,238,224,.55), rgba(246,238,224,0) 70%); animation:ripple 1.1s ease-out forwards}
+.btn--dark{color:var(--ink-dark); border-color:rgba(46,60,84,.28); background:rgba(255,255,255,.35)}
+.btn--dark:hover{border-color:rgba(62,85,117,.6)}
+.btn--line{border-color:rgba(255,255,255,.45); background:rgba(6,199,85,.14)}
+.btn--line:hover{background:rgba(6,199,85,.24); border-color:rgba(160,240,200,.8)}
+.btn__note{display:block; margin-top:20px; font-size:.68rem; letter-spacing:.34em; opacity:.72}
+.btn__note span{display:inline-block; margin:0 .55em}
+@keyframes ripple{to{transform:translate(-50%,-50%) scale(1); opacity:0}}
+@media (prefers-reduced-motion: reduce){ .btn:hover{transform:none} .btn .ripple{display:none} }
+
+/* ============================================================================
+   Reveal — 空気が変わるように（blur が晴れる）
+   ========================================================================== */
+[data-reveal]{opacity:0; transform:translateY(30px); filter:blur(8px);
+  transition:opacity 1.5s cubic-bezier(.19,1,.22,1), transform 1.5s cubic-bezier(.19,1,.22,1), filter 1.5s ease}
+[data-reveal].in{opacity:1; transform:none; filter:none}
+[data-reveal][data-delay="1"]{transition-delay:.12s}
+[data-reveal][data-delay="2"]{transition-delay:.24s}
+[data-reveal][data-delay="3"]{transition-delay:.36s}
+@media (prefers-reduced-motion: reduce){ [data-reveal]{opacity:1; transform:none; filter:none; transition:none} }
+
+/* ============================================================================
+   HERO
+   ========================================================================== */
+.hero{position:relative; overflow:hidden; min-height:100svh; display:grid; place-items:center; text-align:center; padding:140px var(--gutter) 120px}
+.hero__inner{max-width:760px}
+.hero__mark{font-family:var(--serif); font-size:clamp(1.5rem,4vw,2.1rem); letter-spacing:.5em; font-weight:400; opacity:.9; padding-left:.5em}
+.hero__rule{width:44px; height:1px; background:rgba(234,241,248,.5); margin:clamp(26px,4vw,38px) auto}
+.hero__copy{font-family:var(--serif); font-size:clamp(2rem,7vw,3.7rem); line-height:1.4; letter-spacing:.03em; text-shadow:0 3px 50px rgba(8,14,28,.5)}
+.hero__sub{margin-top:clamp(26px,4vw,40px); line-height:2.2; color:var(--ink-light-soft); font-weight:300; font-size:clamp(.92rem,1.6vw,1.05rem)}
+.hero__sub b{display:block; color:var(--ink-light); font-weight:400; margin-bottom:1.1em; letter-spacing:.14em; font-size:1.05em}
+.hero__cta{margin-top:clamp(38px,6vw,56px)}
+.hero__benefit{margin-top:clamp(16px,2.6vw,24px); color:var(--ink-light); font-weight:300; font-size:clamp(.9rem,1.5vw,1.02rem); line-height:1.95; letter-spacing:.07em}
+.hero__linenote{margin-top:14px; font-size:.7rem; letter-spacing:.14em; line-height:1.7; color:var(--ink-light-soft); opacity:.82}
+.hero__scroll{position:absolute; left:50%; bottom:30px; transform:translateX(-50%); font-size:.6rem; letter-spacing:.4em; color:var(--ink-light-soft); opacity:0; animation:scrollIn 1.6s ease 8.2s forwards}
+@keyframes scrollIn{to{opacity:.8}}
+.hero__scroll i{display:block; width:1px; height:44px; margin:12px auto 0; background:linear-gradient(rgba(234,241,248,.7),transparent); animation:fall 2.6s ease-in-out infinite}
+.hero__inner>*{opacity:0; transform:translateY(18px); animation:rise 1.5s cubic-bezier(.19,1,.22,1) forwards}
+.hero__inner>*:nth-child(1){animation-delay:4.6s}
+.hero__inner>*:nth-child(2){animation-delay:5.1s}
+.hero__inner>*:nth-child(3){animation-delay:5.7s}
+.hero__inner>*:nth-child(4){animation-delay:6.6s}
+.hero__inner>*:nth-child(5){animation-delay:7.4s}
+.hero__inner>*:nth-child(6){animation-delay:8s}
+@keyframes rise{to{opacity:1; transform:none}}
+@keyframes fall{0%,100%{opacity:.2; transform:scaleY(.4)}50%{opacity:.9; transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){ .hero__inner>*{opacity:1; transform:none; animation:none} .hero__scroll{opacity:.8; animation:none} .hero__scroll i{animation:none} }
+
+/* ============================================================================
+   PHASES（夜から朝へ）
+   ========================================================================== */
+.phases{margin-top:clamp(48px,8vw,84px); display:flex; flex-direction:column}
+.phase{display:grid; grid-template-columns:auto 1fr auto; gap:clamp(18px,3vw,36px); align-items:baseline;
+  padding:clamp(40px,6.5vw,70px) 0; border-top:1px solid rgba(255,255,255,.1)}
+.phase:last-child{border-bottom:1px solid rgba(255,255,255,.1)}
+.phase__dot{align-self:center; width:9px; height:9px; border-radius:50%; box-shadow:0 0 20px 2px var(--pdot); background:var(--pdot)}
+.phase__en{font-family:var(--serif); font-weight:400; font-size:clamp(2rem,6.6vw,3.3rem); letter-spacing:.05em; line-height:1.08}
+.phase__jp{color:var(--ink-light-soft); font-size:.86rem; margin-top:1.1em; font-weight:300; letter-spacing:.12em}
+.phase__i{font-family:var(--serif); opacity:.42; font-size:.78rem; letter-spacing:.26em}
+.phase:nth-child(1){--pdot:#33436180}
+.phase:nth-child(2){--pdot:#5877a0}
+.phase:nth-child(3){--pdot:#89a8c9}
+.phase:nth-child(4){--pdot:#d9c3a4}
+.phase:nth-child(5){--pdot:#f2e6d2}
+
+/* ============================================================================
+   QUIZ — 1問ずつ / ガラス / Mirror
+   ========================================================================== */
+.quiz{position:relative}
+.mirror{position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none}
+.mirror::before{content:""; position:absolute; left:50%; top:0; bottom:0; width:min(680px,86vw); transform:translateX(-50%);
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.11) 50%, rgba(255,255,255,.05));
+  border-left:1px solid rgba(255,255,255,.08); border-right:1px solid rgba(255,255,255,.08);
+  mask-image:linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent)}
+.mirror::after{content:""; position:absolute; left:50%; top:50%; width:120%; height:2px; transform:translate(-50%,-50%);
+  background:linear-gradient(90deg,transparent,rgba(214,229,240,.5),transparent); filter:blur(1px); animation:mirrorline 9s ease-in-out infinite}
+@keyframes mirrorline{0%,100%{opacity:.3; transform:translate(-50%,-50%) scaleX(.8)}50%{opacity:.9; transform:translate(-50%,-50%) scaleX(1.05)}}
+@media (prefers-reduced-motion: reduce){ .mirror::after{animation:none} }
+
+.quiz__stage{position:relative; z-index:2; max-width:720px; margin-inline:auto; text-align:center}
+.quiz__dots{display:flex; gap:12px; justify-content:center; margin-bottom:clamp(40px,7vw,68px)}
+.quiz__dots i{width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.25); transition:.5s ease}
+.quiz__dots i.on{background:var(--dawn); box-shadow:0 0 14px var(--dawn); transform:scale(1.15)}
+.quiz__dots i.done{background:rgba(220,234,243,.7)}
+.quiz__count{font-family:var(--serif); font-size:.82rem; letter-spacing:.28em; color:var(--dawn); opacity:.85; margin-bottom:clamp(20px,3vw,28px)}
+.quiz__count b{font-weight:400; font-size:1.1em}
+.quiz__count span{opacity:.55; margin:0 .5em}
+.qtrack{position:relative; min-height:360px}
+.qslide{position:absolute; inset:0; opacity:0; visibility:hidden; transform:translateY(24px); transition:opacity .9s ease, transform .9s cubic-bezier(.19,1,.22,1); pointer-events:none}
+.qslide.active{opacity:1; visibility:visible; transform:none; pointer-events:auto; position:relative}
+.qslide .qn{font-family:var(--serif); font-size:.86rem; letter-spacing:.34em; color:var(--dawn); opacity:.85}
+.qslide .qq{font-family:var(--serif); font-weight:400; font-size:clamp(1.3rem,4vw,1.9rem); line-height:1.6; margin:1em auto clamp(34px,5vw,50px); max-width:22ch; text-shadow:0 2px 30px rgba(8,14,28,.4)}
+.opts{display:flex; flex-direction:column; gap:14px; max-width:520px; margin-inline:auto; text-align:left}
+.opt{position:relative; display:flex; align-items:center; gap:1em; cursor:pointer; overflow:hidden; min-height:52px;
+  padding:1.15em 1.4em; border-radius:14px; border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.05); backdrop-filter:blur(10px) saturate(1.2); transition:.45s cubic-bezier(.19,1,.22,1)}
+.opt::after{content:""; position:absolute; inset:0; border-radius:inherit; opacity:0; transition:opacity .7s ease; pointer-events:none;
+  background:radial-gradient(90% 130% at 12% 50%, rgba(246,238,224,.45), rgba(220,234,243,.1) 45%, transparent 70%)}
+.opt:hover{border-color:rgba(220,234,243,.55); background:rgba(220,234,243,.12); transform:translateY(-1px)}
+.opt input{position:absolute; opacity:0; width:0; height:0}
+.opt__mk{flex:0 0 auto; width:16px; height:16px; border-radius:50%; border:1px solid rgba(255,255,255,.5); transition:.4s}
+.opt__tx{font-weight:300; font-size:.96rem; line-height:1.7; letter-spacing:.04em}
+.opt.sel,.opt:has(input:checked){border-color:rgba(246,238,224,.85); background:rgba(220,234,243,.16); box-shadow:0 0 40px -10px rgba(246,238,224,.6)}
+.opt.sel::after,.opt:has(input:checked)::after{opacity:1}
+.opt.sel .opt__mk,.opt:has(input:checked) .opt__mk{border-color:var(--dawn); background:radial-gradient(circle,var(--dawn) 0 45%,transparent 50%); box-shadow:0 0 16px var(--dawn)}
+.quiz__hint{margin-top:clamp(34px,5vw,50px); font-size:.7rem; letter-spacing:.28em; color:var(--ink-light-soft); opacity:.7; min-height:1.2em}
+.quiz__back{margin-top:22px; background:none; border:0; color:var(--ink-light-soft); font:inherit; font-size:.72rem; letter-spacing:.2em; cursor:pointer; opacity:.65; font-family:var(--sans)}
+.quiz__back:hover{opacity:1}
+@media (prefers-reduced-motion: reduce){ .qslide{transition:opacity .3s} }
+
+/* ============================================================================
+   Gifts / About / FAQ
+   ========================================================================== */
+.gifts{margin-top:clamp(40px,6vw,64px); border-top:1px solid var(--hair-dark)}
+.gift{display:grid; grid-template-columns:auto 1fr; gap:clamp(18px,3vw,32px); align-items:baseline;
+  padding:clamp(22px,3.2vw,30px) 0; border-bottom:1px solid var(--hair-dark)}
+.gift__i{font-family:var(--serif); letter-spacing:.1em; color:var(--indigo); font-size:.9rem}
+.gift__t{font-size:1.04rem; font-weight:300; letter-spacing:.05em; color:var(--ink-dark)}
+.gift__sub{display:block; margin-top:.5em; font-size:.78rem; letter-spacing:.06em; opacity:.72; font-weight:300}
+.gift__lead{font-weight:300; line-height:2.05; font-size:clamp(.88rem,1.3vw,.96rem); letter-spacing:.04em; margin-top:clamp(22px,3.4vw,30px)}
+
+.about{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(36px,6vw,80px); align-items:center}
+.figure{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/5; box-shadow:0 50px 90px -50px rgba(46,60,84,.55)}
+.figure svg{width:100%; height:100%}
+.figure__cap{position:absolute; left:16px; bottom:14px; font-family:var(--serif); font-size:.76rem; letter-spacing:.16em; color:rgba(255,255,255,.85); text-shadow:0 1px 10px rgba(0,0,0,.4)}
+.triad{margin-top:1.8em; display:flex; flex-direction:column; gap:.4em}
+.triad span{font-family:var(--serif); font-size:clamp(1.35rem,4vw,1.9rem); letter-spacing:.06em}
+.triad span:last-child{color:var(--indigo)}
+
+.faq{margin-top:clamp(34px,5vw,52px); border-top:1px solid var(--hair-dark)}
+.faq details{border-bottom:1px solid var(--hair-dark)}
+.faq summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1em;
+  padding:clamp(22px,3.2vw,30px) 2px; font-size:1.02rem; font-weight:400; letter-spacing:.03em; color:var(--ink-dark)}
+.faq summary::-webkit-details-marker{display:none}
+.faq .qm{font-family:var(--serif); color:var(--indigo); margin-right:.5em}
+.faq .ic{flex:0 0 auto; width:18px; height:18px; position:relative; transition:transform .5s ease}
+.faq .ic::before,.faq .ic::after{content:""; position:absolute; background:var(--indigo); transition:.5s ease}
+.faq .ic::before{left:0; right:0; top:8.5px; height:1px}
+.faq .ic::after{top:0; bottom:0; left:8.5px; width:1px}
+.faq details[open] .ic::after{transform:scaleY(0)}
+.faq details[open] .ic{transform:rotate(90deg)}
+.faq .ans{overflow:hidden; color:var(--ink-dark-soft); font-weight:300; line-height:2.1; font-size:.95rem}
+.faq .ans p{padding:0 2px clamp(22px,3.2vw,30px); max-width:60ch}
+.faq details[open] .ans{animation:soft .6s ease}
+@keyframes soft{from{opacity:0; transform:translateY(-6px)}to{opacity:1; transform:none}}
+
+/* Final */
+.final{text-align:center}
+.final .big{color:var(--ink-dark)}
+.final .body{color:var(--ink-dark-soft); margin:1.6em auto 2.4em; max-width:26ch}
+
+/* 余韻（ブランドの残響） */
+.afterglow{position:relative; z-index:2; text-align:center; padding:clamp(130px,22vh,240px) var(--gutter)}
+.afterglow::before{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:radial-gradient(120% 78% at 50% 46%, rgba(250,250,248,.5), transparent 74%)}
+.afterglow__msg{font-family:var(--serif); font-weight:400; font-size:clamp(1.4rem,4.4vw,2.15rem); line-height:1.95; letter-spacing:.06em; color:var(--ink-dark)}
+.afterglow__msg + .afterglow__msg{margin-top:1.5em}
+.afterglow__mark{margin-top:clamp(44px,8vw,76px); font-family:var(--serif); font-size:1rem; letter-spacing:.52em; color:var(--indigo); opacity:.8; padding-left:.52em}
+
+/* ============================================================================
+   FOOTER
+   ========================================================================== */
+.footer{position:relative; z-index:2; background:#0c1322; color:#aeb7c4; padding:clamp(80px,12vw,140px) 0 44px; overflow:hidden}
+.footer::before{content:""; position:absolute; inset:0 0 auto 0; height:1px; background:linear-gradient(90deg,transparent,rgba(214,229,240,.3),transparent)}
+.footer__grid{display:grid; grid-template-columns:1.3fr 1fr; gap:clamp(40px,7vw,90px); align-items:start}
+.footer__mark{font-family:var(--serif); font-size:1.7rem; letter-spacing:.36em; color:#fff}
+.footer__mk-sub{margin-top:1.4em; max-width:30ch; line-height:2.1; color:#8b94a2; font-weight:300; font-size:.9rem}
+.footer__nav{display:grid; grid-template-columns:1fr 1fr; gap:12px 40px}
+.footer__nav a{color:#c2cad6; font-size:.86rem; letter-spacing:.1em; opacity:.82; transition:.35s; padding:.2em 0; white-space:nowrap}
+.footer__nav a:hover{opacity:1; letter-spacing:.2em}
+.footer__panels{display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,5vw,56px); margin-top:clamp(56px,8vw,88px)}
+.f-h{font-family:var(--sans); font-weight:400; font-size:.66rem; letter-spacing:.32em; text-transform:uppercase; color:#77808e; margin-bottom:18px}
+.ig{border:1px solid rgba(255,255,255,.14); border-radius:8px; min-height:220px; display:grid; place-items:center; text-align:center; padding:26px; color:#8b94a2}
+.ig .en{font-size:1.05rem; color:#c2cad6; letter-spacing:.14em}
+.ig small{display:block; margin-top:12px; font-size:.7rem; line-height:1.9}
+/* Instagram公式埋め込みのフォールバック（embed.js読込前／ブロック時） */
+.instagram-media{background:rgba(255,255,255,.04)!important; border:1px solid rgba(255,255,255,.14)!important; border-radius:8px!important; margin:0!important; min-width:auto!important; padding:0!important}
+.ig-fallback{display:grid; place-items:center; gap:10px; min-height:200px; padding:26px; text-align:center; color:#8b94a2; transition:color .3s}
+.ig-fallback .en{font-size:1.05rem; color:#c2cad6; letter-spacing:.14em}
+.ig-fallback span:last-child{font-size:.74rem; letter-spacing:.08em}
+.ig-fallback:hover{color:#c2cad6}
+/* Instagram リンクアウト型 */
+.ig-link{display:grid; place-items:center; gap:10px; min-height:200px; padding:26px; text-align:center; color:#8b94a2;
+  border:1px solid rgba(255,255,255,.14); border-radius:8px; transition:border-color .4s, color .4s}
+.ig-link .en{font-size:1.02rem; color:#c2cad6; letter-spacing:.1em; word-break:break-all}
+.ig-link span:last-child{font-size:.74rem; letter-spacing:.08em}
+.ig-link:hover{border-color:rgba(246,238,224,.5); color:#c2cad6}
+.cform{display:flex; flex-direction:column; gap:15px}
+.cfield label{display:block; font-size:.66rem; letter-spacing:.2em; color:#8b94a2; margin-bottom:8px; text-transform:uppercase}
+.cfield input,.cfield textarea{width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); border-radius:8px;
+  color:#eef1f5; font-family:var(--sans); font-weight:300; font-size:.92rem; padding:.9em 1.05em; transition:.35s}
+.cfield input:focus,.cfield textarea:focus{outline:none; border-color:rgba(137,168,201,.8); background:rgba(255,255,255,.06)}
+.cfield textarea{min-height:118px; resize:vertical}
+.cform .btn{align-self:flex-start; margin-top:4px}
+.cdone{display:none; color:#9fd8b4; font-size:.82rem; letter-spacing:.06em}
+.footer__base{margin-top:clamp(56px,8vw,84px); padding-top:26px; border-top:1px solid rgba(255,255,255,.08);
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; color:#6d7684; font-size:.7rem; letter-spacing:.14em}
+
+/* ============================================================================
+   Sound toggle
+   ========================================================================== */
+.sound{position:fixed; right:clamp(16px,2.5vw,28px); bottom:calc(clamp(16px,2.5vw,28px) + env(safe-area-inset-bottom)); z-index:46;
+  display:flex; align-items:center; gap:10px; padding:.7em 1.1em; border-radius:100px; cursor:pointer;
+  background:rgba(11,18,32,.42); border:1px solid rgba(255,255,255,.2); backdrop-filter:blur(12px); color:var(--ink-light);
+  font-size:.62rem; letter-spacing:.26em; transition:.5s ease}
+.sound:hover{border-color:rgba(246,238,224,.6)}
+.sound__wave{display:flex; align-items:center; gap:2.5px; height:13px}
+.sound__wave span{width:2px; height:4px; background:currentColor; border-radius:2px; opacity:.5}
+.sound.on .sound__wave span{animation:eq 1s ease-in-out infinite}
+.sound.on .sound__wave span:nth-child(2){animation-delay:.2s}
+.sound.on .sound__wave span:nth-child(3){animation-delay:.4s}
+.sound.on .sound__wave span:nth-child(4){animation-delay:.15s}
+.sound__label b{font-weight:400; opacity:.6}
+@keyframes eq{0%,100%{height:4px; opacity:.4}50%{height:12px; opacity:1}}
+@media (prefers-reduced-motion: reduce){ .sound.on .sound__wave span{animation:none; height:8px} }
+
+/* ============================================================================
+   VEIL — Prelude / Loading（フルスクリーン）
+   ========================================================================== */
+.veil{position:fixed; inset:0; z-index:90; display:grid; place-items:center; text-align:center; padding:var(--gutter);
+  color:var(--ink-light); opacity:0; visibility:hidden; transition:opacity 1.4s ease, visibility 1.4s}
+.veil.show{opacity:1; visibility:visible}
+.veil__scene{position:absolute; inset:0; z-index:0;
+  background:linear-gradient(to bottom,#0e1626 0%,#18243b 40%,#2a3d5c 60%,#3a5578 63%,#1c2b44 78%,#0d1524 100%)}
+.veil__scene::after{content:""; position:absolute; left:0; right:0; top:61%; height:30vh;
+  background:radial-gradient(60% 100% at 50% 30%, rgba(246,238,224,.34), transparent 66%); opacity:.7; animation:breathe 7s ease-in-out infinite}
+.veil__sea{position:absolute; left:-20%; right:-20%; top:62%; bottom:0; z-index:0;
+  background:repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 11px);
+  mask-image:linear-gradient(to bottom, transparent, #000 40%, transparent); opacity:.5; animation:seashift 15s linear infinite}
+.veil__inner{position:relative; z-index:2; width:min(600px,100%)}
+.vstate{grid-area:1/1; opacity:0; visibility:hidden; transform:translateY(12px); transition:opacity 1.3s ease, transform 1.3s ease; pointer-events:none}
+.veil__inner{display:grid}
+.vstate.show{opacity:1; visibility:visible; transform:none; pointer-events:auto}
+.vstate p{line-height:2.4; font-weight:300; font-size:clamp(1rem,2.4vw,1.2rem); letter-spacing:.14em; color:#e4ecf4}
+.vstate .lead{font-family:var(--serif); font-size:clamp(1.4rem,4.6vw,2rem); line-height:1.7; letter-spacing:.06em; margin-bottom:1.3em}
+.vname{font-family:var(--serif); font-weight:400; font-size:clamp(2rem,7vw,3.4rem); letter-spacing:.12em; color:#f2e6d2; opacity:0; text-shadow:0 2px 46px rgba(246,238,224,.45)}
+.vname.show{animation:nameflash 1.5s ease}
+@keyframes nameflash{0%{opacity:0; transform:translateY(8px)}28%,62%{opacity:1; transform:none}100%{opacity:0; transform:translateY(-6px)}}
+.breath{width:74px; height:74px; margin:2.4em auto 0; border-radius:50%;
+  background:radial-gradient(circle at 50% 55%, var(--dawn-warm), rgba(244,230,207,0) 66%); animation:breathe 5.2s ease-in-out infinite}
+.veil .btn{margin-top:2.4em}
+.vclose{display:block; margin:1.8em auto 0; background:none; border:0; color:#aebbc9; font-size:.66rem; letter-spacing:.24em; cursor:pointer; opacity:.7; font-family:var(--sans)}
+.vclose:hover{opacity:1}
+@keyframes breathe{0%,100%{opacity:.55; transform:scale(.9)}50%{opacity:1; transform:scale(1.12)}}
+@media (prefers-reduced-motion: reduce){ .veil__scene::after,.veil__sea,.breath{animation:none} }
+
+/* flash — 光へ進む */
+.flash{position:fixed; inset:0; z-index:95; pointer-events:none; opacity:0;
+  background:radial-gradient(circle at 50% 60%, rgba(250,246,238,.95), rgba(246,238,224,.5) 40%, rgba(220,234,243,0) 75%)}
+.flash.go{animation:flash 1.3s ease forwards}
+@keyframes flash{0%{opacity:0; transform:scale(.6)}45%{opacity:1}100%{opacity:0; transform:scale(1.3)}}
+
+/* film fade — 読み込み時、暗い海から静かに明ける */
+.filmfade{position:fixed; inset:0; z-index:60; pointer-events:none; background:#0a1019; animation:filmout 2.6s ease .2s forwards}
+@keyframes filmout{to{opacity:0}}
+@media (prefers-reduced-motion: reduce){ .filmfade{animation:none; opacity:0} }
+
+/* 安心表記 */
+.reassure{margin-top:16px; font-size:.68rem; letter-spacing:.12em; line-height:1.8; opacity:.72; color:var(--ink-light-soft)}
+.reassure--dark{color:var(--ink-dark-soft); opacity:.82}
+
+/* 法定ページ（モーダル） */
+.legal{max-width:640px; width:calc(100% - 40px); max-height:82svh; border:0; border-radius:12px; padding:0; color:var(--ink-dark);
+  background:#fafaf8; box-shadow:0 40px 120px -30px rgba(20,30,50,.55)}
+.legal::backdrop{background:rgba(10,16,30,.55); backdrop-filter:blur(4px)}
+.legal__inner{padding:clamp(28px,5vw,48px); overflow-y:auto; max-height:82svh}
+.legal h3{font-family:var(--serif); font-size:1.5rem; letter-spacing:.04em; margin-bottom:1em; color:var(--charcoal)}
+.legal h4{font-family:var(--sans); font-weight:500; font-size:.78rem; letter-spacing:.16em; color:var(--indigo); margin:1.7em 0 .5em}
+.legal p{font-weight:300; line-height:1.95; font-size:.9rem; color:var(--ink-dark-soft)}
+.legal dl{display:grid; grid-template-columns:auto 1fr; gap:.8em 1.5em; font-size:.9rem; margin-bottom:.5em}
+.legal dt{font-weight:500; color:var(--charcoal); white-space:nowrap}
+.legal dd{margin:0; font-weight:300; color:var(--ink-dark-soft); line-height:1.85}
+.legal__rev{margin-top:1.6em; font-size:.78rem; opacity:.7}
+.legal form{margin-top:1.9em}
+@media (max-width:480px){ .legal dl{grid-template-columns:1fr; gap:.15em .4em} .legal dt{margin-top:.9em} }
+
+/* sticky mobile */
+.sticky{position:fixed; left:0; right:0; bottom:0; z-index:44; padding:12px var(--gutter) calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(to top, rgba(11,18,32,.7), rgba(11,18,32,0)); transform:translateY(140%); transition:transform .6s cubic-bezier(.19,1,.22,1)}
+.sticky.show{transform:none}
+.sticky .btn{width:100%; padding:1.15em}
+@media (min-width:861px){ .sticky{display:none} }
+
+/* ============================================================================
+   Photography — 各セクションの実写（index.htmlと同じフォルダに配置）
+   画像が読めない環境では背後のCSSの空へ自然にフォールバック
+   ========================================================================== */
+.chapter .wrap{position:relative; z-index:2}
+.hero__inner{position:relative; z-index:2}
+.hero__scroll{z-index:3}
+.photo{position:absolute; inset:0; z-index:0; background-size:cover; background-position:center; background-repeat:no-repeat}
+.photo::after{content:""; position:absolute; inset:0}
+.photo--hero{background-image:url("Hero_firstview.jpg"); animation:kenburns 36s ease-in-out infinite alternate}
+.photo--hero::after{background:linear-gradient(to bottom, rgba(9,14,26,.52) 0%, rgba(9,14,26,.24) 44%, rgba(9,14,26,.56) 100%)}
+.photo--quiz{background-image:url("Sindan_section.jpg")}
+.photo--quiz::after{background:linear-gradient(to bottom, rgba(12,19,34,.62), rgba(12,19,34,.5))}
+.photo--faq{background-image:url("FAQ.jpg")}
+.photo--faq::after{background:linear-gradient(to bottom, rgba(250,250,248,.66), rgba(250,250,248,.5))}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
+@media (prefers-reduced-motion: reduce){ .photo--hero{animation:none} }
+
+.figure{background:linear-gradient(160deg,#c7d3e0,#e6ded1)}
+.figure__img{position:absolute; inset:0; background-size:cover; background-repeat:no-repeat; background-position:center}
+.figure--about .figure__img{background-image:url("About_section.jpg"); background-position:center top}
+.figure--journal{aspect-ratio:4/5}
+.figure--journal .figure__img{background-image:url("Journal.jpg")}
+.after-grid{display:grid; grid-template-columns:1.08fr .92fr; gap:clamp(34px,6vw,72px); align-items:center; margin-top:clamp(30px,5vw,52px)}
+
+.footer__photo{position:absolute; inset:0; z-index:0; background:linear-gradient(to bottom, rgba(10,16,30,.9), rgba(10,16,30,.74)), url("Futter.jpg") center/cover no-repeat}
+.footer .wrap{position:relative; z-index:2}
+
+/* ============================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width:860px){
+  .about{grid-template-columns:1fr; gap:40px}
+  .after-grid{grid-template-columns:1fr; gap:34px}
+  .figure--about{max-width:440px; margin-inline:auto}
+  .footer__grid{grid-template-columns:1fr; gap:36px}
+  .footer__panels{grid-template-columns:1fr}
+  .sound{bottom:calc(84px + env(safe-area-inset-bottom))}   /* 固定CTAの上へ逃がす（重なり防止） */
+  .footer{padding-bottom:calc(44px + 78px)}                 /* 固定CTAで隠れないよう余白 */
+}
+@media (max-width:560px){
+  .nav__brand{letter-spacing:.24em; font-size:1rem}
+  .nav__faq{display:none}
+  .footer__nav{grid-template-columns:1fr}
+  .qtrack{min-height:460px}
+  .sound__label{display:none}
+  .hero{padding-top:104px; padding-bottom:96px}
+  .hero__rule{margin:20px auto}
+  .hero__copy{font-size:1.72rem; line-height:1.48}
+  .hero__sub{margin-top:20px; line-height:2; max-width:19em; margin-inline:auto; text-wrap:balance}
+  .hero__benefit{font-size:.92rem; margin-top:14px; max-width:19em; margin-inline:auto; text-wrap:balance}
+  .hero__cta{margin-top:26px}
+  /* 選択肢：縦並び・押しやすい高さと余白・2行に収める */
+  .opts{gap:16px}
+  .opt{min-height:52px; padding:.9em 1.15em}
+  .opt__tx{font-size:.93rem; line-height:1.6}
+  /* 診断中は背景装飾を控えめにし、読みやすさを優先 */
+  .quiz .mirror{opacity:.4}
+  .photo--quiz::after{background:linear-gradient(to bottom, rgba(12,19,34,.76), rgba(12,19,34,.68))}
+  .quiz__count{font-size:.86rem}
+  /* 固定CTA（スマホ）を押しやすく */
+  .sticky .btn{min-height:54px}
+}
+@media (max-width:400px){
+  :root{--gutter:20px}
+  .hero__copy{font-size:1.58rem}
+  .hero__mark{font-size:1.25rem; letter-spacing:.36em}
+  .hero__sub{font-size:.9rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== FIXED SKY & SEA ===================== -->
 <div class="sky" aria-hidden="true">
-  <div class="sky__layer l-night"></div>
+  <div class="sky__layer l-night" id="lNight"></div>
+  <div class="sky__stars sky__star-twinkle" id="stars"></div>
   <div class="sky__layer l-twilight" id="lTwilight"></div>
   <div class="sky__layer l-blue" id="lBlue"></div>
   <div class="sky__layer l-dawn" id="lDawn"></div>
   <div class="sky__layer l-day" id="lDay"></div>
-  <div class="sky__stars" id="stars"></div>
   <div class="sky__fog" id="fog"></div>
   <div class="sky__sun" id="sun"></div>
   <div class="sky__horizon"></div>
@@ -62,342 +566,623 @@
 </div>
 <div class="grain" aria-hidden="true"></div>
 
-<!-- ============ ヘッダー ============ -->
-<header class="site-header on-dark" id="siteHeader">
-  <a class="brand" href="./">
-    <svg class="brand__mark" viewBox="0 0 32 32" fill="none" stroke-width="1" aria-hidden="true">
-      <circle cx="16" cy="16" r="12.5"/>
-      <path d="M6.5 19.5h19"/>
-      <path d="M11.5 19.5a4.5 4.5 0 0 1 9 0"/>
-      <path d="M16 10.5v2.2M10.8 12.6l1.5 1.5M21.2 12.6l-1.5 1.5" stroke-linecap="round"/>
-    </svg>
-    <span class="brand__name">Pale Hour</span>
-  </a>
-  <div class="header-right">
-    <nav class="gnav" id="gnav" aria-label="メインナビゲーション">
-      <ul class="gnav__list">
-        <li><a href="#concept">Concept</a></li>
-        <li><a href="about/">About</a></li>
-        <li><a href="program/">Program</a></li>
-        <li><a href="voice/">Voice</a></li>
-        <li><a href="journal/">Journal</a></li>
-        <li><a href="faq/">FAQ</a></li>
-        <li><a href="contact/">Contact</a></li>
-      </ul>
-      <div class="gnav__cta"><a class="btn btn-outline" href="diagnosis/">フェーズ診断をはじめる</a></div>
-    </nav>
-    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="gnav" aria-label="メニューを開く">
-      <span class="menu-toggle__bars"></span>
-    </button>
-  </div>
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <a href="#top" class="nav__brand">Pale&nbsp;Hour</a>
+  <nav class="nav__links" aria-label="ナビゲーション">
+    <a href="#faq" class="nav__faq">FAQ</a>
+    <!-- LINEリンク差し替え -->
+    <a href="https://lin.ee/Tr6jRUn" target="_blank" rel="noopener" class="nav__pill" data-cv="line">LINE</a>
+  </nav>
 </header>
 
-<main class="page">
+<main class="page" id="top">
 
-  <!-- ============ 01 Hero ============ -->
-  <section class="hero m-light">
-    <div class="hero__photo" aria-hidden="true">
-      <img src="assets/images/hero/hero-dawn.jpg" alt="" fetchpriority="high">
-      <div class="hero__veil"></div>
-    </div>
-    <div class="wrap">
-      <div class="hero__inner">
-        <h1 class="hero__title">恋愛から、<br>自分へ。</h1>
-        <p class="hero__sub">夜明け前の静かな時間が、<br>あなたを本来のあなたへ戻していく。</p>
-        <div class="hero__cta">
-          <a class="btn btn-outline" href="diagnosis/">フェーズ診断をはじめる</a>
-          <span class="hero__note">無料 / 6問 / 約1分</span>
-        </div>
+  <!-- ========== HERO（夜・始まり） ========== -->
+  <section class="hero chapter--tall m-light" aria-label="Pale Hour">
+    <div class="photo photo--hero" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <div class="hero__mark">Pale Hour</div>
+      <div class="hero__rule"></div>
+      <h1 class="hero__copy">彼に振り回される恋愛を、<br>終わらせたいあなたへ。</h1>
+      <p class="hero__sub">
+        <b>恋愛から、自分へ。</b>
+        追いかけてしまう恋の奥にある、<br class="lb">あなたの現在地を<br class="lb">静かに見つめる6問診断。
+      </p>
+      <p class="hero__benefit">無料6問で、<br class="lb">あなたが恋愛で苦しくなる理由と、<br class="lb">次に整えるべきポイントがわかります。</p>
+      <div class="hero__cta">
+        <button class="btn" data-journey type="button">恋愛フェーズ診断をはじめる</button>
+        <span class="btn__note"><span>無料</span>·<span>6問</span>·<span>約1分</span></span>
+        <p class="hero__linenote">診断結果はLINEで無料配信されます</p>
       </div>
     </div>
-    <div class="hero__scroll" aria-hidden="true">Scroll</div>
+    <div class="hero__scroll" aria-hidden="true">SCROLL<i></i></div>
   </section>
 
-  <!-- ============ 02 Concept ============ -->
-  <section class="section hsec m-light" id="concept">
+  <!-- ========== 共感（夜・迷い） ========== -->
+  <section class="chapter m-light" data-reveal>
     <div class="wrap">
-      <div class="concept__grid">
-        <div class="reveal">
-          <span class="eyebrow">Concept</span>
-          <h2 class="concept__title" style="margin-top:1em">恋愛は、<br>人生の入り口。<br>その先のあなたのために。</h2>
-          <p class="concept__body">
-            Pale Hourは、恋愛を教えるだけの場所ではありません。
-          </p>
-          <p class="concept__body">
-            恋愛の中で揺れる感情を見つめ、<br>
-            自分の境界線を知り、<br>
-            自分らしく生きていくための時間を届けます。
-          </p>
-          <p class="concept__refrain">
-            恋愛から、自立へ。<br>
-            恋愛から、キャリアへ。<br>
-            恋愛から、自分へ。
-          </p>
-          <div class="concept__link">
-            <a class="tlink" href="about/">Pale Hourの想いを読む</a>
+      <div class="kicker"><span class="num">Ⅰ</span><span class="eyebrow">Night — 迷い</span><span class="rule"></span></div>
+      <h2 class="title lede">彼の一言で、<br>夜が長くなる日がある。</h2>
+      <div class="spacer-lg"></div>
+      <p class="body measure">
+        <span class="s">返信が来ないだけで、<br class="lb">何度もスマホを開いてしまう。</span>
+        <span class="s">本当は嫌なのに、<br class="lb">嫌われるのが怖くて断れない。</span>
+        <span class="s">予定も、気分も、自分の価値さえも、<br class="lb">彼の反応で決まってしまう。</span>
+      </p>
+      <p class="body measure soft">
+        <span class="s">それは、あなたが弱いからではありません。</span>
+        <span class="s">今いる恋愛のフェーズを知らないまま、ひとりで頑張ってきただけかもしれません。</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== 診断紹介（薄明→Blue Hour・気づき） ========== -->
+  <section class="chapter m-light" data-reveal>
+    <div class="wrap">
+      <div class="kicker"><span class="num">Ⅱ</span><span class="eyebrow">First Light — 気づき</span><span class="rule"></span></div>
+      <h2 class="title lede">あなたは今、<br>恋愛のどのフェーズにいますか。</h2>
+      <div class="spacer-lg"></div>
+      <p class="body measure soft">
+        <span class="s">Pale Hourの恋愛フェーズ診断は、<br class="lb">今のあなたの恋愛状態を「夜から朝へ」の5段階で見つめます。</span>
+        <span class="s">診断結果はLINEで無料配信されます。登録後すぐに、あなたの恋愛フェーズ・苦しくなりやすい理由・次に整えるポイントをお届けします。</span>
+      </p>
+      <div class="phases">
+        <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Midnight</div><div class="phase__jp">彼中心で、自分を見失いやすい時期</div></div><span class="phase__i">01</span></div>
+        <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">First Light</div><div class="phase__jp">苦しさの理由に気づき始める時期</div></div><span class="phase__i">02</span></div>
+        <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Turning Tide</div><div class="phase__jp">自分を取り戻す方向へ、流れが変わり始める時期</div></div><span class="phase__i">03</span></div>
+        <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Sunrise</div><div class="phase__jp">境界線を持ち、自分の気持ちを選び始める時期</div></div><span class="phase__i">04</span></div>
+        <div class="phase"><span class="phase__dot"></span><div><div class="phase__en">Morning Tide</div><div class="phase__jp">恋愛も人生も、自分軸で選べる時期</div></div><span class="phase__i">05</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 診断（Blue Hour・自分を映す） ========== -->
+  <section class="chapter quiz m-light" id="quiz" data-reveal>
+    <div class="photo photo--quiz" aria-hidden="true"></div>
+    <div class="mirror" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="quiz__stage">
+        <div class="kicker" style="justify-content:center"><span class="eyebrow">Turning Tide — 自分を映す</span></div>
+        <div class="quiz__count" id="qcount" aria-live="polite"><b>1</b><span>/</span>6</div>
+        <div class="quiz__dots" id="dots" aria-hidden="true"></div>
+
+        <form class="qtrack" id="quizForm" novalidate>
+          <fieldset class="qslide active" data-step="0">
+            <legend class="qn">Q1</legend>
+            <p class="qq">彼からLINEの返信が来ないとき、一番近いのは。</p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="q1" value="A"><span class="opt__mk"></span><span class="opt__tx">何度もLINEを開いて返信を確認してしまう</span></label>
+              <label class="opt"><input type="radio" name="q1" value="B"><span class="opt__mk"></span><span class="opt__tx">「嫌われたのかも」と考え続けてしまう</span></label>
+              <label class="opt"><input type="radio" name="q1" value="C"><span class="opt__mk"></span><span class="opt__tx">気になるけど、自分の予定で気を紛らわせようとする</span></label>
+              <label class="opt"><input type="radio" name="q1" value="D"><span class="opt__mk"></span><span class="opt__tx">返信は返信として受け止め、自分の時間を過ごせる</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="qslide" data-step="1">
+            <legend class="qn">Q2</legend>
+            <p class="qq">恋愛をしているときの自分は。</p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="q2" value="A"><span class="opt__mk"></span><span class="opt__tx">相手の予定を最優先にしてしまう</span></label>
+              <label class="opt"><input type="radio" name="q2" value="B"><span class="opt__mk"></span><span class="opt__tx">本当は嫌でも断れないことが多い</span></label>
+              <label class="opt"><input type="radio" name="q2" value="C"><span class="opt__mk"></span><span class="opt__tx">「これでいいのかな」と考え始めている</span></label>
+              <label class="opt"><input type="radio" name="q2" value="D"><span class="opt__mk"></span><span class="opt__tx">自分の気持ちも大切にして選択できる</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="qslide" data-step="2">
+            <legend class="qn">Q3</legend>
+            <p class="qq">彼の機嫌が悪そうだと。</p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="q3" value="A"><span class="opt__mk"></span><span class="opt__tx">「私が何かした」とすぐ自分を責める</span></label>
+              <label class="opt"><input type="radio" name="q3" value="B"><span class="opt__mk"></span><span class="opt__tx">どうしたら嫌われないか考える</span></label>
+              <label class="opt"><input type="radio" name="q3" value="C"><span class="opt__mk"></span><span class="opt__tx">相手の問題かもしれないと思える時もある</span></label>
+              <label class="opt"><input type="radio" name="q3" value="D"><span class="opt__mk"></span><span class="opt__tx">必要以上に背負い込まない</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="qslide" data-step="3">
+            <legend class="qn">Q4</legend>
+            <p class="qq">恋愛中の休日は。</p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="q4" value="A"><span class="opt__mk"></span><span class="opt__tx">彼からの連絡を待って終わることがある</span></label>
+              <label class="opt"><input type="radio" name="q4" value="B"><span class="opt__mk"></span><span class="opt__tx">予定を空けてしまうことが多い</span></label>
+              <label class="opt"><input type="radio" name="q4" value="C"><span class="opt__mk"></span><span class="opt__tx">最近は自分の予定も入れるようになった</span></label>
+              <label class="opt"><input type="radio" name="q4" value="D"><span class="opt__mk"></span><span class="opt__tx">恋愛以外の時間も楽しめる</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="qslide" data-step="4">
+            <legend class="qn">Q5</legend>
+            <p class="qq">恋愛が終わると。</p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="q5" value="A"><span class="opt__mk"></span><span class="opt__tx">「私には価値がない」と感じてしまう</span></label>
+              <label class="opt"><input type="radio" name="q5" value="B"><span class="opt__mk"></span><span class="opt__tx">次の恋愛をすぐ探してしまう</span></label>
+              <label class="opt"><input type="radio" name="q5" value="C"><span class="opt__mk"></span><span class="opt__tx">一人の時間も大切にしようと思っている</span></label>
+              <label class="opt"><input type="radio" name="q5" value="D"><span class="opt__mk"></span><span class="opt__tx">恋愛がなくても自分らしく過ごせる</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="qslide" data-step="5">
+            <legend class="qn">Q6</legend>
+            <p class="qq">あなたが一番怖いのは。</p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="q6" value="A"><span class="opt__mk"></span><span class="opt__tx">一人になること</span></label>
+              <label class="opt"><input type="radio" name="q6" value="B"><span class="opt__mk"></span><span class="opt__tx">嫌われること</span></label>
+              <label class="opt"><input type="radio" name="q6" value="C"><span class="opt__mk"></span><span class="opt__tx">愛されないこと</span></label>
+              <label class="opt"><input type="radio" name="q6" value="D"><span class="opt__mk"></span><span class="opt__tx">本当の自分を出すこと</span></label>
+            </div>
+          </fieldset>
+        </form>
+
+        <p class="quiz__hint" id="hint">ひとつ選ぶと、次の問いへ進みます</p>
+        <button class="quiz__back" id="back" type="button" hidden>← 前の問いに戻る</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 受け取れるもの（Blue Hour 後半） ========== -->
+  <section class="chapter m-light" data-reveal>
+    <div class="wrap">
+      <div class="kicker"><span class="num">Ⅲ</span><span class="eyebrow">After — 受け取るもの</span><span class="rule"></span></div>
+      <div class="after-grid">
+        <div>
+          <h2 class="title lede">診断のあと、<br>あなたに届くもの。</h2>
+          <div class="gifts" style="border-color:rgba(255,255,255,.14)">
+            <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">01</span><span class="gift__t" style="color:var(--ink-light)">あなたの恋愛フェーズ</span></div>
+            <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">02</span><span class="gift__t" style="color:var(--ink-light)">今の恋愛で苦しくなりやすい理由</span></div>
+            <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">03</span><span class="gift__t" style="color:var(--ink-light)">次に整えるべきポイント</span></div>
+            <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">04</span><span class="gift__t" style="color:var(--ink-light)">LINE限定 Mirror Pattern診断</span></div>
+            <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">05</span><span class="gift__t" style="color:var(--ink-light)">タイプ別 無料Note</span></div>
+            <div class="gift" style="border-color:rgba(255,255,255,.14)"><span class="gift__i" style="color:var(--dawn)">06</span><span class="gift__t" style="color:var(--ink-light)">Pale Hour Love Compass<small class="gift__sub">追う恋を卒業する、恋愛の教科書</small></span></div>
           </div>
+          <p class="body soft gift__lead">
+            <span class="s">診断は、入口です。</span>
+            <span class="s">まずは今の恋愛フェーズを知り、<br class="lb">次にMirror Pattern診断で<br class="lb">恋のクセを深く見つめ、<br class="lb">タイプ別無料Noteで今のあなたに必要なヒントを受け取れます。</span>
+            <span class="s">さらに必要な方には、追う恋を卒業する恋愛の教科書『Pale Hour Love Compass』へ進めます。</span>
+          </p>
         </div>
-        <figure class="concept__photo reveal">
-          <img src="assets/images/common/morning-mug.jpg" alt="湯気の立つマグカップを両手で包む、朝の窓辺の手元" loading="lazy">
-          <figcaption>Quiet morning</figcaption>
+        <figure class="figure figure--journal" aria-label="海辺の朝、開いた手帳とカップ">
+          <div class="figure__img" role="img" aria-label="海辺で開いた手帳とコーヒー"></div>
         </figure>
       </div>
     </div>
   </section>
 
-  <!-- ============ 03 About Pale Hour（4つの価値） ============ -->
-  <section class="section hsec m-light">
+  <!-- ========== About（朝焼け） ========== -->
+  <section class="chapter m-dark" data-reveal>
     <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">About Pale Hour</span>
-        <h2 class="sec-title">Pale Hourが大切にしている、4つの時間。</h2>
-      </div>
-      <div class="values__grid">
-        <div class="value reveal">
-          <svg class="value__icon" viewBox="0 0 44 44" fill="none" stroke-width="1.1" aria-hidden="true">
-            <path d="M6 24c5-6 10-6 15 0s10 6 15 0"/>
-            <path d="M6 31c5-6 10-6 15 0s10 6 15 0" opacity=".5"/>
-          </svg>
-          <div class="value__num">01</div>
-          <h3 class="value__name">整える</h3>
-          <p class="value__text">感情を否定せず、心の土台を整える</p>
-        </div>
-        <div class="value reveal">
-          <svg class="value__icon" viewBox="0 0 44 44" fill="none" stroke-width="1.1" aria-hidden="true">
-            <ellipse cx="22" cy="18" rx="9" ry="11"/>
-            <path d="M22 29v7M16 36h12"/>
-            <path d="M18 14c1-2 3-3 5-3" stroke-linecap="round" opacity=".6"/>
-          </svg>
-          <div class="value__num">02</div>
-          <h3 class="value__name">気づく</h3>
-          <p class="value__text">自分の本音や、繰り返す恋愛の癖に気づく</p>
-        </div>
-        <div class="value reveal">
-          <svg class="value__icon" viewBox="0 0 44 44" fill="none" stroke-width="1.1" aria-hidden="true">
-            <path d="M13 37V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v28"/>
-            <path d="M10 37h24"/>
-            <path d="M17 7v30" opacity=".55"/>
-            <circle cx="21" cy="22" r=".9" fill="currentColor" stroke="none"/>
-          </svg>
-          <div class="value__num">03</div>
-          <h3 class="value__name">選ぶ</h3>
-          <p class="value__text">誰かの正解ではなく、自分の意思で選ぶ</p>
-        </div>
-        <div class="value reveal">
-          <svg class="value__icon" viewBox="0 0 44 44" fill="none" stroke-width="1.1" aria-hidden="true">
-            <path d="M5 29h34"/>
-            <path d="M15 29a7 7 0 0 1 14 0"/>
-            <path d="M22 15v3M12.5 18l2 2M31.5 18l-2 2M8 24.5l2.6.9M36 24.5l-2.6.9" stroke-linecap="round"/>
-          </svg>
-          <div class="value__num">04</div>
-          <h3 class="value__name">進む</h3>
-          <p class="value__text">恋愛の先のキャリアや人生まで整えていく</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 04 Program ============ -->
-  <section class="section hsec m-dark" id="program">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Program</span>
-        <h2 class="sec-title">あなたのペースで「心を整え、自分を取り戻していく」ためのプログラムを用意しています。</h2>
-      </div>
-      <div class="program__grid">
-        <article class="pcard pcard--main reveal">
-          <span class="pcard__tag">無料</span>
-          <div class="pcard__num">01</div>
-          <h3 class="pcard__name">恋愛フェーズ診断</h3>
-          <p class="pcard__text">6つの質問で、今のあなたの恋愛フェーズを「夜から朝へ」の5段階で見つめるセルフチェック。すべての入り口になる診断です。</p>
-          <div class="pcard__link"><a class="tlink" href="diagnosis/">診断をはじめる</a></div>
-        </article>
-        <article class="pcard reveal">
-          <span class="pcard__tag">LINE登録者限定</span>
-          <div class="pcard__num">02</div>
-          <h3 class="pcard__name">タイプ別無料Note</h3>
-          <p class="pcard__text">診断結果のタイプごとに、苦しくなりやすい理由と、最初に整えるポイントをまとめた無料Note。</p>
-          <div class="pcard__link"><a class="tlink" href="program/">詳しく見る</a></div>
-        </article>
-        <article class="pcard reveal">
-          <span class="pcard__tag">有料Note</span>
-          <div class="pcard__num">03</div>
-          <h3 class="pcard__name">恋愛の教科書</h3>
-          <p class="pcard__text">恋愛で自分を見失う仕組みと、自分軸へ戻る手順を体系的にまとめた有料Note。購入者には特典として無料個別相談をご案内します。</p>
-          <div class="pcard__link"><a class="tlink" href="program/">詳しく見る</a></div>
-        </article>
-        <article class="pcard reveal">
-          <span class="pcard__tag">不定期開催</span>
-          <div class="pcard__num">04</div>
-          <h3 class="pcard__name">グループプログラム</h3>
-          <p class="pcard__text">少人数で、恋愛のその先——自分の軸・境界線・これからの選択——を整えていく時間。開催時期はLINEでご案内します。</p>
-          <div class="pcard__link"><a class="tlink" href="program/">詳しく見る</a></div>
-        </article>
-      </div>
-      <div class="program__more reveal">
-        <a class="tlink" href="program/">すべてのプログラムを見る</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 05 Voice ============ -->
-  <section class="section hsec m-dark">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Voice</span>
-        <h2 class="sec-title">自分へ戻り始めた方の声</h2>
-      </div>
-      <!-- 掲載準備中の案内（実在するお客様の声が揃い次第、下のテンプレートと差し替える） -->
-      <div class="voice__pending reveal">
-        <p>お客様の声は現在、掲載準備中です。<br>プログラムにご参加いただいた方の実際の声を、ご本人の許可を得たうえで掲載します。</p>
-      </div>
-      <!-- ▼▼ 実在する声の掲載テンプレート（管理者用・許可を得た実際の声だけを入れる）▼▼
-      <div class="vcard reveal">
-        <p class="vcard__text">（ここに、ご本人の許可を得た実際のご感想を入れる）</p>
-        <p class="vcard__meta">（例：20代・会社員 ※ご本人の了承を得た範囲の属性のみ。年齢・職業・成果の創作は禁止）</p>
-      </div>
-      ▲▲ ここまでテンプレート ▲▲ -->
-    </div>
-  </section>
-
-  <!-- ============ 06 Journal ============ -->
-  <section class="section hsec m-dark">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Journal</span>
-        <h2 class="sec-title">恋愛、自立、キャリア、ライフスタイルについて。<br>Pale Hourの視点で綴るエッセイです。</h2>
-      </div>
-      <div class="journal__grid">
-        <a class="jcard jcard--wide reveal" href="journal/article-template/">
-          <div class="jcard__thumb"><img src="assets/images/common/night-bedside.jpg" alt="夜のベッドサイドに置かれたスマートフォンとマグカップ" loading="lazy"></div>
-          <div class="jcard__cat">Self</div>
-          <h3 class="jcard__title">返信が来ない夜に、自分へ戻るために</h3>
-        </a>
-        <div class="jcard reveal">
-          <div class="jcard__thumb"><img src="assets/images/common/beach-walk.jpg" alt="朝の光の中、浜辺を裸足で歩く女性の足元" loading="lazy"></div>
-          <div class="jcard__cat">Love</div>
-          <h3 class="jcard__title">彼に嫌われないことより、大切にしたいこと</h3>
-          <span class="jcard__soon">準備中</span>
-        </div>
-        <div class="jcard reveal">
-          <div class="jcard__thumb"><img src="assets/images/common/morning-curtain.jpg" alt="朝の光に揺れる白いカーテン" loading="lazy"></div>
-          <div class="jcard__cat">Self</div>
-          <h3 class="jcard__title">恋愛で自分を見失うのは、弱いからではない</h3>
-          <span class="jcard__soon">準備中</span>
-        </div>
-        <div class="jcard reveal">
-          <div class="jcard__thumb"><img src="assets/images/common/white-flower.jpg" alt="窓辺の一輪挿しに立つ白い花" loading="lazy"></div>
-          <div class="jcard__cat">Life</div>
-          <h3 class="jcard__title">境界線を持つということ</h3>
-          <span class="jcard__soon">準備中</span>
-        </div>
-        <div class="jcard reveal">
-          <div class="jcard__thumb"><img src="assets/images/common/desk-sunrise.jpg" alt="夜明けの海を望む机に開かれたノートとペン" loading="lazy"></div>
-          <div class="jcard__cat">Career</div>
-          <h3 class="jcard__title">恋愛の先にある、私のキャリア</h3>
-          <span class="jcard__soon">準備中</span>
-        </div>
-      </div>
-      <div class="journal__more reveal">
-        <a class="tlink" href="journal/">すべての記事を見る</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 07 FAQ & Contact ============ -->
-  <section class="section fc m-dark">
-    <div class="fc__bg" aria-hidden="true"><img src="assets/images/common/linen-texture.jpg" alt="" loading="lazy"></div>
-    <div class="wrap">
-      <div class="fc__grid">
-        <div class="reveal">
-          <div class="sec-head">
-            <span class="eyebrow">FAQ</span>
-            <h2 class="sec-title">よくあるご質問</h2>
-          </div>
-          <div class="faq-list">
-            <details class="faq-item">
-              <summary>恋愛フェーズ診断は無料ですか</summary>
-              <div class="faq-a"><p>はい、無料です。6つの質問に答えるだけでご利用いただけます。</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>診断にはどれくらい時間がかかりますか</summary>
-              <div class="faq-a"><p>約1分です。スマートフォンからそのままお答えいただけます。</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>恋愛相談をしたことがなくても利用できますか</summary>
-              <div class="faq-a"><p>はい。はじめての方こそ、まずは無料の診断から。今の自分の状態を言葉にするところから始められます。</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>有料サービスの案内はありますか</summary>
-              <div class="faq-a"><p>有料Note「恋愛の教科書」などをご用意しています。無料の診断やNoteだけのご利用でも問題ありません。無理なおすすめは行いません。</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>診断結果は医学的な診断ですか</summary>
-              <div class="faq-a"><p>いいえ。診断結果は医学的・心理学的な診断ではなく、自己理解のためのセルフチェックです。</p></div>
-            </details>
+      <div class="kicker"><span class="num">Ⅳ</span><span class="eyebrow">Sunrise — Pale Hourとは</span><span class="rule"></span></div>
+      <div class="about">
+        <div>
+          <h2 class="title">恋愛は、人生の目的ではなく、<br>自分を知る入口。</h2>
+          <div class="spacer-lg"></div>
+          <p class="body measure soft">
+            <span class="s">Pale Hourは、恋愛を通して<br class="lb">自分の感情、境界線、思考の癖を見つめ直す場所です。</span>
+            <span class="s">彼に選ばれるためではなく、自分の人生を自分で選ぶために。</span>
+          </p>
+          <div class="triad">
+            <span>恋愛から、自立へ。</span>
+            <span>恋愛から、キャリアへ。</span>
+            <span>恋愛から、自分へ。</span>
           </div>
         </div>
-        <div class="fc__contact reveal">
-          <div class="sec-head">
-            <span class="eyebrow">Contact</span>
-            <h2 class="sec-title">お問い合わせ</h2>
-          </div>
-          <p class="sec-lead">ご質問やご相談など、お気軽にお問い合わせください。<br>内容を確認後、順次ご返信いたします。</p>
-          <a class="btn btn-solid" href="contact/">お問い合わせフォームへ</a>
-        </div>
+        <!-- 差し替え：別写真にするなら figure__img の background-image（CSS .figure--about）を変更、または <img src="About_section.png" alt="夜明けの海辺に立つ女性の後ろ姿"> に置換 -->
+        <figure class="figure figure--about" aria-label="夜明けの海辺に佇む女性">
+          <div class="figure__img" role="img" aria-label="夜明けの海辺に立つ女性の後ろ姿"></div>
+          <figcaption class="figure__cap">Morning Tide</figcaption>
+        </figure>
       </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ（朝） ========== -->
+  <section class="chapter m-dark" id="faq" data-reveal>
+    <div class="photo photo--faq" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="kicker"><span class="eyebrow">Questions</span><span class="rule"></span></div>
+      <h2 class="title lede">静かな疑問に、<br>静かな答えを。</h2>
+      <div class="faq">
+        <details><summary><span><span class="qm">Q.</span>診断は無料ですか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>はい。恋愛フェーズ診断とLINEで届く診断結果は無料です。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>LINE登録しないと結果は見られませんか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>はい。診断結果はLINEでお届けします。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>恋愛相談をしたことがなくても大丈夫ですか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>大丈夫です。まずは今の状態を知るための診断としてご利用ください。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>有料サービスへの勧誘はありますか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>必要な方には、有料Noteや個別相談をご案内する場合があります。無理な案内はしません。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>診断結果は正確ですか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>医学的・心理学的な診断ではありません。自分の恋愛傾向を見つめるためのセルフチェックです。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>個別相談に申し込まないといけませんか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>いいえ。診断と無料Noteだけ受け取ることもできます。必要な方にだけ、有料Noteや個別相談をご案内します。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>重い恋愛相談でも大丈夫ですか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>大丈夫です。Pale Hourは、相手を変えるためではなく、自分の感情や境界線を整えるための場所です。</p></div></details>
+        <details><summary><span><span class="qm">Q.</span>どんな人に向いていますか。</span><span class="ic" aria-hidden="true"></span></summary><div class="ans"><p>彼の返信や態度で気分が揺れやすい方、追う恋を卒業したい方、自分軸の恋愛をしたい方に向いています。</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 最終CTA（朝日・新しい一歩） ========== -->
+  <section class="chapter chapter--tall m-dark final" data-reveal aria-label="最終CTA">
+    <div class="wrap">
+      <div class="kicker" style="justify-content:center"><span class="eyebrow">Morning — 新しい一歩</span></div>
+      <h2 class="big">夜が明ける前に、<br>自分を見つめる時間を。</h2>
+      <p class="body">彼の反応で一日が決まってしまう恋から、自分の気持ちを選べる恋へ。まずは6問で、今のあなたの現在地を見つめてみてください。</p>
+      <button class="btn btn--dark" data-journey type="button">恋愛フェーズ診断をはじめる</button>
+      <p class="reassure reassure--dark">無料 · 6問 · 約1分 · しつこい勧誘はありません</p>
     </div>
   </section>
 
 </main>
 
-<!-- ============ 08 Footer ============ -->
-<footer class="site-footer">
+<!-- ===================== 余韻（ブランドの残響） ===================== -->
+<section class="afterglow m-dark" data-reveal aria-label="Pale Hour">
   <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="brand" href="./">
-          <svg class="brand__mark" viewBox="0 0 32 32" fill="none" stroke-width="1" aria-hidden="true">
-            <circle cx="16" cy="16" r="12.5"/>
-            <path d="M6.5 19.5h19"/>
-            <path d="M11.5 19.5a4.5 4.5 0 0 1 9 0"/>
-            <path d="M16 10.5v2.2M10.8 12.6l1.5 1.5M21.2 12.6l-1.5 1.5" stroke-linecap="round"/>
-          </svg>
-          <span class="brand__name">Pale Hour</span>
-        </a>
-        <p>恋愛から、自分へ。</p>
+    <p class="afterglow__msg">夜明けは、<br>誰かがくれるものではありません。</p>
+    <p class="afterglow__msg">あなたが、<br>自分へ戻ると決めた瞬間から始まります。</p>
+    <div class="afterglow__mark">Pale Hour</div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="footer__photo" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__mark">Pale Hour</div>
+        <p class="footer__mk-sub">夜明け前の、青白く澄んだ光の時間。<br>恋愛に振り回される夜から、私中心の朝へ。</p>
       </div>
-      <nav class="footer-col" aria-label="フッターナビゲーション">
-        <h4>Menu</h4>
-        <ul>
-          <li><a href="#concept">Concept</a></li>
-          <li><a href="about/">About</a></li>
-          <li><a href="program/">Program</a></li>
-          <li><a href="voice/">Voice</a></li>
-          <li><a href="journal/">Journal</a></li>
-          <li><a href="faq/">FAQ</a></li>
-          <li><a href="contact/">Contact</a></li>
-          <li><a href="privacy/">Privacy Policy</a></li>
-          <li><a href="legal/">特定商取引法に基づく表記</a></li>
-        </ul>
+      <nav class="footer__nav" aria-label="フッターリンク">
+        <a href="https://www.instagram.com/shiromomo_renai_mind/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.threads.com/@shiromomo_renai_mind" target="_blank" rel="noopener">Threads</a>
+        <a href="https://note.com/shirmo_milan" target="_blank" rel="noopener">Note</a>
+        <a href="#contact">Contact</a>
+        <a href="#" data-modal="privacy">Privacy</a>
+        <a href="#" data-modal="tokusho">特定商取引法に基づく表記</a>
       </nav>
-      <div class="footer-col">
-        <h4>Follow</h4>
-        <ul>
-          <li><a href="https://www.instagram.com/shiromomo_renai_mind/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://lin.ee/Tr6jRUn" target="_blank" rel="noopener" data-cv="line">LINE</a></li>
-          <li><a href="https://www.threads.com/@shiromomo_renai_mind" target="_blank" rel="noopener">Threads</a></li>
-          <li><a href="https://note.com/shirmo_milan" target="_blank" rel="noopener">Note</a></li>
-        </ul>
+    </div>
+
+    <div class="footer__panels">
+      <div>
+        <div class="f-h">Instagram</div>
+        <!-- 個別投稿を実埋め込みしたい場合：この <a class="ig-link"> を
+             <blockquote class="instagram-media" data-instgrm-permalink="投稿URL" data-instgrm-version="14">…</blockquote>
+             に置き換え、ページ末尾の embed.js コメントを解除してください。 -->
+        <a class="ig-link" href="https://www.instagram.com/shiromomo_renai_mind/" target="_blank" rel="noopener">
+          <span class="en">@shiromomo_renai_mind</span>
+          <span>Instagramで最新の投稿を見る</span>
+        </a>
+      </div>
+      <div id="contact">
+        <div class="f-h">Contact</div>
+        <!-- ▼ Googleフォーム接続（3手順）：
+             1) Googleフォームを作成（お名前=記述式／メールアドレス=記述式／お問い合わせ内容=段落）
+             2) 右上「⋮」→「事前入力したURLを取得」で各項目の entry.XXXXXXXXX を確認
+             3) 下の action の FORM_ID と、各 input の name="entry.…" を差し替え
+                （FORM_ID は フォーム送信URL /forms/d/e/【この部分】/viewform）
+             送信は隠しiframe経由でページ遷移なし・サンクス表示になります。 -->
+        <form class="cform" id="contactForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeJKxpe1Fp4Qe7VQAb6KyYOYw7WZAhEmrAa_Aix_yar7kudoA/formResponse" method="POST" target="gform_sink">
+          <div class="cfield"><label for="c-name">お名前</label><input id="c-name" name="entry.182505884" type="text" autocomplete="name" required></div>
+          <div class="cfield"><label for="c-email">メールアドレス</label><input id="c-email" name="entry.1042653966" type="email" autocomplete="email" required></div>
+          <div class="cfield"><label for="c-msg">お問い合わせ内容</label><textarea id="c-msg" name="entry.2109856422" required></textarea></div>
+          <button class="btn btn--line" type="submit">送信する</button>
+          <p class="cdone" id="cDone" role="status">送信ありがとうございます。順にご返信します。</p>
+        </form>
+        <iframe name="gform_sink" title="送信" style="display:none" aria-hidden="true"></iframe>
       </div>
     </div>
-    <div class="footer-bottom">
-      <small>&copy; Pale Hour</small>
-    </div>
+
+    <div class="footer__base"><span>&copy; Pale Hour</span><span>恋愛から、自分へ。</span></div>
   </div>
 </footer>
 
-<script src="assets/js/common.js" defer></script>
-<script src="assets/js/home.js" defer></script>
+<!-- ===================== SOUND ===================== -->
+<button class="sound" id="sound" type="button" aria-pressed="false" aria-label="環境音の再生 / 停止">
+  <span class="sound__wave" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+  <span class="sound__label">Sound <b id="soundState">OFF</b></span>
+</button>
+
+<!-- ===================== VEIL（Prelude / Loading） ===================== -->
+<div class="veil" id="veil" role="dialog" aria-modal="true" aria-label="Pale Hour">
+  <div class="veil__scene" aria-hidden="true"><div class="veil__sea"></div></div>
+  <div class="veil__inner">
+    <!-- Prelude -->
+    <div class="vstate" id="vPrelude">
+      <p class="lead">少しだけ、<br>深呼吸をしてみてください。</p>
+      <p>恋愛のことを考える前に、<br>まずは、あなた自身に戻る時間です。</p>
+      <div class="breath" aria-hidden="true"></div>
+    </div>
+    <!-- Loading -->
+    <div class="vstate" id="vLoading">
+      <p class="lead">あなたの現在地を<br>静かに見つめています。</p>
+      <div class="breath" aria-hidden="true"></div>
+    </div>
+    <!-- Phase names（光のように順に淡く） -->
+    <div class="vstate" id="vNames" aria-hidden="true">
+      <div class="vname" id="vName"></div>
+    </div>
+    <!-- Result -->
+    <div class="vstate" id="vResult">
+      <p class="lead">あなたの恋愛フェーズは<br>判定されました。</p>
+      <p>結果はLINEで無料で受け取れます。登録後すぐに、恋愛フェーズ・苦しくなる理由・次に整えるポイントをお届けします。</p>
+      <!-- 最終CV：LINE。リンク差し替え -->
+      <a class="btn btn--line" href="https://lin.ee/Tr6jRUn" target="_blank" rel="noopener" data-cv="line">結果をLINEで受け取る</a>
+      <p class="reassure">登録は無料 · 1分で完了 · いつでもブロックできます · しつこい勧誘はありません</p>
+      <button class="vclose" id="vClose" type="button">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<div class="flash" id="flash" aria-hidden="true"></div>
+<div class="filmfade" id="filmfade" aria-hidden="true"></div>
+
+<!-- ===================== 特商法 / プライバシー（テンプレ。[ ]を自社情報に記入） ===================== -->
+<dialog class="legal" id="tokusho">
+  <div class="legal__inner">
+    <h3>特定商取引法に基づく表記</h3>
+    <dl>
+      <dt>販売事業者</dt><dd>starlitkoyo</dd>
+      <dt>運営責任者</dt><dd>starlitkoyo（氏名は請求があれば遅滞なく開示します）</dd>
+      <dt>所在地</dt><dd>請求があれば遅滞なく開示します</dd>
+      <dt>電話番号</dt><dd>070-6972-2526（お問い合わせは本ページのフォームまたはメールが確実です）</dd>
+      <dt>メール</dt><dd>starlitkoyo@gmail.com</dd>
+      <dt>販売価格</dt><dd>恋愛フェーズ診断・LINE配信は無料。有料Note・個別相談は各販売ページに表示する価格（税込）。</dd>
+      <dt>商品以外の料金</dt><dd>通信料はお客様のご負担となります。</dd>
+      <dt>お支払い方法・時期</dt><dd>各販売ページに記載（クレジットカード等）。お支払い時期は購入時。</dd>
+      <dt>提供時期</dt><dd>デジタルコンテンツは決済確認後ただちに提供。個別相談は予約日時に実施。</dd>
+      <dt>返品・キャンセル</dt><dd>商品の性質上、提供後の返品・キャンセルはお受けできません。詳細は各販売ページに記載します。</dd>
+    </dl>
+    <form method="dialog"><button class="btn btn--outline">閉じる</button></form>
+  </div>
+</dialog>
+<dialog class="legal" id="privacy">
+  <div class="legal__inner">
+    <h3>プライバシーポリシー</h3>
+    <p>Pale Hour（以下「当方」）は、取得した個人情報を適切に取り扱います。</p>
+    <h4>取得する情報</h4><p>お問い合わせ時のお名前・メールアドレス・内容、LINE連携時にLINEから提供される範囲の情報、アクセス解析による利用状況（Cookie等）。</p>
+    <h4>利用目的</h4><p>お問い合わせへの対応、診断結果・情報の配信、サービスの改善と分析のため。</p>
+    <h4>第三者提供</h4><p>法令に基づく場合を除き、ご本人の同意なく第三者へ提供しません。</p>
+    <h4>アクセス解析</h4><p>本サイトはGoogleアナリティクス等を利用する場合があります。Cookieによる匿名の利用データを収集し、個人を特定しません。ブラウザ設定で無効化できます。</p>
+    <h4>開示・訂正・削除</h4><p>ご本人からの請求に応じ、保有する個人情報を開示・訂正・削除します。ご連絡はお問い合わせフォームより。</p>
+    <h4>お問い合わせ</h4><p>starlitkoyo@gmail.com（またはページ内のお問い合わせフォーム）</p>
+    <p class="legal__rev">制定日：2026年7月3日</p>
+    <form method="dialog"><button class="btn btn--outline">閉じる</button></form>
+  </div>
+</dialog>
+
+<!-- ===================== STICKY (mobile) ===================== -->
+<div class="sticky" id="sticky">
+  <button class="btn" id="stickyBtn" data-journey type="button">恋愛フェーズ診断をはじめる</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clamp = function(v,a,b){return Math.max(a,Math.min(b,v));};
+  var lerp  = function(a,b,t){return a+(b-a)*t;};
+  var smooth= function(p,a,b){return clamp((p-a)/(b-a),0,1);};
+
+  /* ---------- ATMOSPHERE：スクロールで夜→朝 ---------- */
+  var lT=document.getElementById('lTwilight'), lB=document.getElementById('lBlue'),
+      lD=document.getElementById('lDawn'), lY=document.getElementById('lDay'),
+      stars=document.getElementById('stars'), fog=document.getElementById('fog'),
+      sun=document.getElementById('sun'), refl=document.getElementById('reflection'),
+      nav=document.getElementById('nav');
+  var progress=0, target=0;
+  function computeTarget(){
+    var h=document.documentElement.scrollHeight-innerHeight;
+    target=h>0?clamp(scrollY/h,0,1):0;
+  }
+  function paint(p){
+    lT.style.opacity=smooth(p,.08,.30);
+    lB.style.opacity=smooth(p,.30,.52);
+    lD.style.opacity=smooth(p,.55,.76);
+    lY.style.opacity=smooth(p,.80,.96);
+    stars.style.opacity=1-smooth(p,.06,.34);
+    fog.style.opacity=(smooth(p,.14,.34)*(1-smooth(p,.5,.72)))*0.9;
+    var sy=lerp(24,-8,smooth(p,.42,1));      // vh
+    sun.style.transform='translate(-50%,'+sy+'vh)';
+    sun.style.opacity=smooth(p,.46,.86);
+    refl.style.opacity=smooth(p,.6,.92)*.9;
+    // nav mood
+    nav.classList.toggle('nav--day', p>.72);
+    nav.classList.toggle('nav--solid', scrollY>40);
+  }
+  function tick(){
+    progress+=(target-progress)*(RM?1:0.08);
+    if(Math.abs(target-progress)<0.0004) progress=target;
+    paint(progress);
+    requestAnimationFrame(tick);
+  }
+  addEventListener('scroll',computeTarget,{passive:true});
+  addEventListener('resize',computeTarget);
+  computeTarget(); paint(0); requestAnimationFrame(tick);
+
+  /* ---------- REVEAL ---------- */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+  } else { document.querySelectorAll('[data-reveal]').forEach(function(el){el.classList.add('in');}); }
+
+  /* ---------- BUTTON ripple（波紋） ---------- */
+  document.addEventListener('pointerdown',function(e){
+    var b=e.target.closest('.btn'); if(!b||RM) return;
+    var r=b.getBoundingClientRect(), s=Math.max(r.width,r.height)*2.2;
+    var sp=document.createElement('span'); sp.className='ripple';
+    sp.style.width=sp.style.height=s+'px'; sp.style.left=(e.clientX-r.left)+'px'; sp.style.top=(e.clientY-r.top)+'px';
+    b.appendChild(sp); setTimeout(function(){sp.remove();},1100);
+  });
+
+  /* ---------- 光へ進む（flash） ---------- */
+  var flash=document.getElementById('flash');
+  function goLight(cb){
+    if(RM){cb&&cb();return;}
+    flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go');
+    setTimeout(function(){cb&&cb();},560);
+  }
+
+  /* ---------- VEIL ---------- */
+  var veil=document.getElementById('veil');
+  var states={prelude:document.getElementById('vPrelude'),loading:document.getElementById('vLoading'),names:document.getElementById('vNames'),result:document.getElementById('vResult')};
+  function showState(k){for(var s in states){states[s].classList.toggle('show',s===k);}}
+  function openVeil(k){showState(k); veil.classList.add('show'); document.body.style.overflow='hidden';}
+  function closeVeil(){veil.classList.remove('show'); document.body.style.overflow='';}
+  document.getElementById('vClose').addEventListener('click',closeVeil);
+
+  /* ---------- JOURNEY：Hero CTA → Prelude → 診断 ---------- */
+  function startJourney(){
+    goLight(function(){
+      openVeil('prelude');
+      var wait=RM?1400:4600;
+      setTimeout(function(){
+        closeVeil();
+        setTimeout(function(){
+          document.getElementById('quiz').scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
+        },300);
+      },wait);
+    });
+  }
+  document.querySelectorAll('[data-journey]').forEach(function(b){
+    b.addEventListener('click',function(){
+      if(b.dataset.line){ trackLine(); window.open('https://lin.ee/Tr6jRUn','_blank','noopener'); return; }
+      startJourney();
+    });
+  });
+
+  /* ---------- STICKY ---------- */
+  var sticky=document.getElementById('sticky'), hero=document.querySelector('.hero');
+  if('IntersectionObserver' in window && hero){
+    new IntersectionObserver(function(es){sticky.classList.toggle('show',!es[0].isIntersecting);},{threshold:.04}).observe(hero);
+  }
+
+  /* ---------- QUIZ（1問ずつ） ---------- */
+  var form=document.getElementById('quizForm');
+  var slides=[].slice.call(form.querySelectorAll('.qslide'));
+  var dotsWrap=document.getElementById('dots');
+  var hint=document.getElementById('hint');
+  var back=document.getElementById('back');
+  var qcount=document.getElementById('qcount');
+  var TOTAL=slides.length, step=0;
+  slides.forEach(function(_,i){var d=document.createElement('i'); d.dataset.i=i; dotsWrap.appendChild(d);});
+  var dots=[].slice.call(dotsWrap.children);
+  function render(){
+    slides.forEach(function(s,i){s.classList.toggle('active',i===step);});
+    dots.forEach(function(d,i){d.classList.toggle('on',i===step); d.classList.toggle('done',i<step);});
+    if(qcount){ qcount.innerHTML='<b>'+(step+1)+'</b><span>/</span>'+TOTAL; }
+    back.hidden=step===0;
+    var name='q'+(step+1);
+    hint.textContent=form.querySelector('input[name="'+name+'"]:checked')?'':'ひとつ選ぶと、次の問いへ進みます';
+  }
+  function answeredAll(){for(var i=1;i<=TOTAL;i++){if(!form.querySelector('input[name="q'+i+'"]:checked'))return false;}return true;}
+  form.addEventListener('change',function(e){
+    if(!e.target.matches('input[type=radio]'))return;
+    var lbl=e.target.closest('.opt');
+    slides[step].querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');});
+    if(lbl)lbl.classList.add('sel');
+    hint.textContent='';
+    var last=step>=TOTAL-1;
+    setTimeout(function(){
+      if(last){ if(answeredAll()) finish(); else nextUnanswered(); }
+      else { step++; render(); }
+    }, RM?150:620);
+  });
+  function nextUnanswered(){for(var i=0;i<TOTAL;i++){if(!form.querySelector('input[name="q'+(i+1)+'"]:checked')){step=i;render();return;}}}
+  back.addEventListener('click',function(){if(step>0){step--;render();}});
+  render();
+
+  /* 集計（表示はしない・内部保持） */
+  function judge(){
+    var c={A:0,B:0,C:0,D:0};
+    form.querySelectorAll('input:checked').forEach(function(i){c[i.value]++;});
+    var best='A',mx=-1; ['A','B','C','D'].forEach(function(k){if(c[k]>mx){mx=c[k];best=k;}});
+    return {A:'Midnight',B:'First Light',C:'Turning Tide',D:'Sunrise / Morning Tide'}[best];
+  }
+  var PHASES=['Midnight','First Light','Turning Tide','Sunrise','Morning Tide'];
+  var vName=document.getElementById('vName');
+  function runNames(done){
+    showState('names');
+    if(RM){ setTimeout(done,400); return; }
+    var i=0;
+    (function step(){
+      if(i>=PHASES.length){ setTimeout(done,700); return; }
+      vName.textContent=PHASES[i]; i++;
+      vName.classList.remove('show'); void vName.offsetWidth; vName.classList.add('show');
+      setTimeout(step,1450);
+    })();
+  }
+  function finish(){
+    var phase=judge(); try{sessionStorage.setItem('paleHourPhase',phase);}catch(_){}
+    goLight(function(){
+      openVeil('loading');
+      setTimeout(function(){ runNames(function(){ showState('result'); }); }, RM?700:2600);
+    });
+    var sb=document.getElementById('stickyBtn');
+    if(sb){sb.textContent='結果をLINEで受け取る'; sb.dataset.line='1';}
+  }
+
+  /* ---------- SOUND：Web Audioで波+風を合成（既定OFF） ---------- */
+  var soundBtn=document.getElementById('sound'), soundState=document.getElementById('soundState');
+  var AC, master, on=false, built=false;
+  function buildAudio(){
+    AC=new (window.AudioContext||window.webkitAudioContext)();
+    master=AC.createGain(); master.gain.value=0; master.connect(AC.destination);
+    var len=AC.sampleRate*4, buf=AC.createBuffer(1,len,AC.sampleRate), d=buf.getChannelData(0), last=0;
+    for(var i=0;i<len;i++){var w=Math.random()*2-1; last=(last+0.02*w)/1.02; d[i]=last*3.2;}
+    // 波
+    var wav=AC.createBufferSource(); wav.buffer=buf; wav.loop=true;
+    var lp=AC.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=460;
+    var wg=AC.createGain(); wg.gain.value=0.55;
+    wav.connect(lp); lp.connect(wg); wg.connect(master);
+    var lfo=AC.createOscillator(); lfo.frequency.value=0.08;
+    var lg=AC.createGain(); lg.gain.value=0.4; lfo.connect(lg); lg.connect(wg.gain);
+    // 朝の風
+    var wind=AC.createBufferSource(); wind.buffer=buf; wind.loop=true;
+    var bp=AC.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=620; bp.Q.value=0.7;
+    var ng=AC.createGain(); ng.gain.value=0.05; wind.connect(bp); bp.connect(ng); ng.connect(master);
+    wav.start(); lfo.start(); wind.start(); built=true;
+  }
+  soundBtn.addEventListener('click',function(){
+    if(!built) buildAudio();
+    if(AC.state==='suspended') AC.resume();
+    on=!on;
+    master.gain.cancelScheduledValues(AC.currentTime);
+    master.gain.linearRampToValueAtTime(on?0.15:0, AC.currentTime+(on?1.6:0.7));
+    soundBtn.classList.toggle('on',on); soundBtn.setAttribute('aria-pressed',String(on));
+    soundState.textContent=on?'ON':'OFF';
+  });
+
+  /* ---------- Contact（未接続時サンクス） ---------- */
+  var cf=document.getElementById('contactForm');
+  var gsink=document.querySelector('iframe[name="gform_sink"]');
+  var cfSending=false;
+  function cfThanks(){ var done=document.getElementById('cDone'); done.textContent='送信ありがとうございます。順にご返信します。'; done.style.display='block'; cf.reset(); }
+  cf.addEventListener('submit',function(e){
+    if(!cf.checkValidity()){ e.preventDefault(); cf.reportValidity(); return; }
+    var a=cf.getAttribute('action');
+    if(!a || a.indexOf('FORM_ID')>-1){ e.preventDefault(); cfThanks(); return; }   /* 未設定=デモ表示 */
+    cfSending=true;   /* Googleフォームへネイティブ送信（隠しiframe＝ページ遷移なし） */
+  });
+  if(gsink){ gsink.addEventListener('load',function(){ if(cfSending){ cfSending=false; cfThanks(); } }); }
+
+  /* ---- 法定ページ（モーダル） ---- */
+  document.querySelectorAll('[data-modal]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var d=document.getElementById(a.getAttribute('data-modal'));
+      if(d&&d.showModal){ d.showModal(); } else if(d){ d.setAttribute('open',''); }
+    });
+  });
+  document.querySelectorAll('dialog.legal').forEach(function(d){
+    d.addEventListener('click',function(e){ if(e.target===d){ d.close(); } }); /* 背景クリックで閉じる */
+  });
+
+  /* ---- CV計測フック（該当タグが入っていれば送信・未設定なら無害） ---- */
+  function trackLine(){
+    try{ if(window.gtag){ gtag('event','line_register',{event_category:'CV',event_label:'LINE'}); } }catch(_){}
+    try{ if(window.fbq){ fbq('track','Lead'); } }catch(_){}
+    try{ if(window.lintrk){ lintrk('track',{conversion_id:0}); } }catch(_){}
+  }
+  window.trackLine=trackLine;
+  document.addEventListener('click',function(e){ if(e.target.closest('[data-cv="line"]')){ trackLine(); } });
+})();
+</script>
+<!-- Instagram個別投稿を実埋め込みする場合のみ有効化：
+<script async src="https://www.instagram.com/embed.js"></script>
+-->
 </body>
 </html>
