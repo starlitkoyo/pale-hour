@@ -45,7 +45,8 @@ body{
   word-break:auto-phrase; text-wrap:pretty;
   overflow-x:hidden;
 }
-h1,h2,h3,h4{margin:0; font-weight:500; line-height:1.5; letter-spacing:.03em; text-wrap:balance; word-break:auto-phrase}
+/* 見出し：text-wrap:balance は日本語で単語の途中改行を起こすため使わない */
+h1,h2,h3,h4{margin:0; font-weight:500; line-height:1.5; letter-spacing:.03em; text-wrap:pretty; word-break:auto-phrase}
 p{margin:0}
 ul,ol{margin:0; padding:0; list-style:none}
 a{color:inherit; text-decoration:none}
@@ -77,6 +78,7 @@ button{font:inherit; color:inherit; background:none; border:0; cursor:pointer; p
   min-height:48px; padding:.9em 2.4em; border-radius:100px;
   font-family:var(--sans); font-weight:400; font-size:.88rem;
   letter-spacing:.18em; line-height:1.4; text-align:center;
+  white-space:nowrap;   /* ボタン文言を途中で折り返さない */
   transition:transform .45s ease, box-shadow .45s ease, letter-spacing .45s ease,
              background-color .45s ease, border-color .45s ease, color .45s ease;
 }
@@ -86,6 +88,10 @@ button{font:inherit; color:inherit; background:none; border:0; cursor:pointer; p
 .btn-outline{background:rgba(255,255,255,.06); color:inherit; border:1px solid currentColor; backdrop-filter:blur(6px)}
 .btn-outline:hover{box-shadow:0 12px 30px -18px rgba(120,150,190,.5)}
 .btn-note{display:block; margin-top:1em; font-size:.74rem; letter-spacing:.24em; color:var(--ink-soft)}
+/* 320〜380pxの端末：nowrapのボタンがはみ出さないよう余白と文字を少し詰める */
+@media (max-width: 380px){
+  .btn{padding-inline:1.5em; font-size:.82rem; letter-spacing:.12em}
+}
 
 /* テキストリンク（罫線が静かに伸びる） */
 .tlink{
@@ -106,8 +112,7 @@ button{font:inherit; color:inherit; background:none; border:0; cursor:pointer; p
   min-height:var(--header-h); padding:14px var(--gutter);
   color:var(--charcoal);
   border-bottom:1px solid transparent;
-  transition:background-color .6s ease, color .6s ease, border-color .6s ease,
-             backdrop-filter .6s ease;
+  transition:background-color .6s ease, color .6s ease, border-color .6s ease;
 }
 /* スクロール後：半透明の白＋ごく弱いぼかし */
 .site-header.is-solid{
@@ -140,8 +145,9 @@ button{font:inherit; color:inherit; background:none; border:0; cursor:pointer; p
   content:""; position:absolute; left:0; right:0; bottom:.2em; height:1px;
   background:currentColor; opacity:.55;
 }
-.header-cta{display:inline-flex}
-.header-cta .btn{min-height:42px; padding:.6em 1.6em; font-size:.74rem}
+/* 診断CTA：デスクトップのヘッダーには置かない（押し売り感を避ける）。
+   モバイルのハンバーガーメニュー内でのみ表示する */
+.gnav__cta{display:none}
 .header-right{display:flex; align-items:center; gap:clamp(16px,2.4vw,34px)}
 
 /* ハンバーガー */
@@ -161,22 +167,44 @@ button{font:inherit; color:inherit; background:none; border:0; cursor:pointer; p
 .menu-toggle[aria-expanded="true"] .menu-toggle__bars::before{top:5px; transform:rotate(24deg)}
 .menu-toggle[aria-expanded="true"] .menu-toggle__bars::after{bottom:5.5px; transform:rotate(-24deg)}
 
-@media (max-width: 860px){
+@media (max-width: 960px){
   .menu-toggle{display:inline-flex}
-  .header-cta{display:none}                /* CTAはメニュー内へ（詰め込まない） */
+
+  /* スマホのヘッダーはぼかし(backdrop-filter)を使わない：
+     ①ぼかし付きの親の中では position:fixed のメニューが壊れる（CSS仕様）
+     ②スマホGPUに重く、開閉時のフリーズの原因になる */
+  .site-header.is-solid{
+    background:rgba(248,247,243,.94);
+    backdrop-filter:none; -webkit-backdrop-filter:none;
+  }
+  .site-header.on-dark.is-solid{
+    background:rgba(14,21,36,.9);
+    backdrop-filter:none; -webkit-backdrop-filter:none;
+  }
+  /* メニュー展開中はヘッダー背景を消し、全画面メニューと一体化させる */
+  .site-header.menu-open-header,
+  .site-header.menu-open-header.is-solid{
+    background:transparent; border-color:transparent;
+    backdrop-filter:none; -webkit-backdrop-filter:none;
+  }
+
   .gnav{
     position:fixed; inset:0; z-index:110;
     display:flex; flex-direction:column; justify-content:center;
     padding:calc(var(--header-h) + 20px) var(--gutter) 40px;
-    background:rgba(38,58,87,.96);
-    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    background:rgba(30,46,72,.98);   /* ほぼ不透明＝ぼかし不要で軽い */
     color:var(--ink-light);
     opacity:0; visibility:hidden; transition:opacity .45s ease, visibility .45s ease;
   }
   .gnav.is-open{opacity:1; visibility:visible}
+
+  /* メニュー表示中は背後の重い演出を止める（フリーズ対策） */
+  body.menu-open .sky *{animation-play-state:paused}
+  body.menu-open .grain{display:none}
+  body.menu-open .hero__photo img{animation-play-state:paused}
   .gnav__list{flex-direction:column; align-items:flex-start; gap:4px}
   .gnav__list a{font-size:1.05rem; padding:.7em 0; opacity:.88}
-  .gnav__cta{margin-top:34px}
+  .gnav__cta{display:block; margin-top:34px}
   .gnav__cta .btn{background:var(--white); color:var(--deep-indigo); border-color:var(--white)}
   body.menu-open{overflow:hidden}
   .site-header.menu-open-header{color:var(--ink-light)}
