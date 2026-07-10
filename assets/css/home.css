@@ -92,7 +92,12 @@ body.page-home{background:#0E1524}
 .hero{
   position:relative; min-height:100svh;
   display:flex; align-items:center;
-  padding-block:calc(var(--header-h) + 40px) 90px;
+  align-items:safe center;   /* 画面が低い時は中央でなく上から並べ、ヘッダーとの重なりを防ぐ */
+  padding-block:calc(var(--header-h) + clamp(40px, 7vh, 84px)) 110px;
+}
+/* PC：下部のScroll表示と干渉しないよう、コピーの下に余白を厚く確保 */
+@media (min-width: 961px){
+  .hero{padding-bottom:190px}
 }
 .hero__photo{
   position:absolute; inset:0; z-index:-1; overflow:hidden;
@@ -123,17 +128,26 @@ body.page-home{background:#0E1524}
   font-family:var(--serif-jp); font-weight:500;
   font-size:clamp(2.1rem, 6vw, 3.5rem); line-height:1.6; letter-spacing:.06em;
 }
-.hero__sub{margin-top:2em; line-height:2.3; letter-spacing:.08em; color:var(--ink-light-soft); font-size:clamp(.95rem,1.4vw,1.05rem)}
-.hero__cta{margin-top:3em}
+/* 余白は文字サイズ基準(em)でなく画面高さ基準：スマホの見え方は維持しつつPCで自然に */
+.hero__sub{margin-top:clamp(26px, 4.5vh, 46px); line-height:2.3; letter-spacing:.08em; color:var(--ink-light-soft); font-size:clamp(.95rem,1.4vw,1.05rem)}
+.hero__cta{margin-top:clamp(38px, 7vh, 68px)}
 .hero__cta .btn{border-color:rgba(255,255,255,.4); background:rgba(255,255,255,.08)}
 .hero__cta .btn:hover{border-color:rgba(246,238,224,.75)}
 .hero__note{display:block; margin-top:1.4em; font-family:var(--serif-en); font-size:.76rem; letter-spacing:.34em; color:var(--ink-light-soft)}
 .hero__scroll{
-  position:absolute; left:50%; bottom:34px; transform:translateX(-50%);
+  position:absolute; left:50%; bottom:30px; transform:translateX(-50%);
   display:flex; flex-direction:column; align-items:center; gap:12px;
   font-family:var(--serif-en); font-size:.66rem; letter-spacing:.4em; color:var(--ink-light-soft);
 }
 .hero__scroll::after{content:""; width:1px; height:52px; background:linear-gradient(to bottom, currentColor, transparent)}
+/* PC：コピーの列と重ならないよう右下へ */
+@media (min-width: 961px){
+  .hero__scroll{left:auto; right:var(--gutter); transform:none}
+}
+/* 高さの低いウィンドウでは出さない（重なりの原因を断つ） */
+@media (max-height: 660px){
+  .hero__scroll{display:none}
+}
 
 /* ----------------------------------------------------------------------------
    02 Concept — 左コピー / 右静物写真の非対称
