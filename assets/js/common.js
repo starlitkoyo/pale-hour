@@ -75,10 +75,9 @@
     }
   });
 
-  /* ---------- お問い合わせフォーム：バリデーションのみ ----------
-     TODO: 本番公開前にフォーム送信先を接続する
-     （Formspree / Googleフォーム / 任意のAPI。接続方法は README.md 参照）
-     未接続のため「送信完了」とは表示しない。 */
+  /* ---------- お問い合わせフォーム：バリデーション＋Googleフォーム送信 ----------
+     診断LPと同じGoogleフォームへ隠しiframe（gform_sink）経由でPOST（接続済 2026-07-12）。
+     種別はGoogleフォーム側に項目がないため、本文の先頭に【種別】として合成する。 */
   var form = document.getElementById("contactForm");
   if (form) {
     function setError(field, on) {
@@ -106,9 +105,15 @@
 
       var status = document.getElementById("formStatus");
       if (vName && vMail && vType && vBody && vAgree) {
-        /* 送信先未接続：虚偽の「送信完了」を出さず、現状を正直に案内する */
+        /* 種別を本文の先頭に合成してからGoogleフォームへ送信（隠しiframeなので遷移しない） */
+        var typeLabel = type.options[type.selectedIndex].text;
+        body.value = "【種別】" + typeLabel + "\n\n" + body.value.trim();
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) btn.disabled = true;
+        form.submit();
+        form.reset();
         status.textContent =
-          "申し訳ありません。お問い合わせフォームは現在準備中です。お急ぎの場合は、公式LINEまたはメール（info@pale-hour.com）よりご連絡ください。";
+          "送信ありがとうございます。内容を確認のうえ、順にご返信いたします。お急ぎの場合は公式LINEまたはメール（info@pale-hour.com）へどうぞ。";
         status.classList.add("is-shown");
         status.focus && status.focus();
       } else {
