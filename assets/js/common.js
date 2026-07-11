@@ -108,7 +108,7 @@
       if (vName && vMail && vType && vBody && vAgree) {
         /* 送信先未接続：虚偽の「送信完了」を出さず、現状を正直に案内する */
         status.textContent =
-          "申し訳ありません。お問い合わせフォームは現在準備中です。お急ぎの場合は、公式LINEまたはメール（starlitkoyo@gmail.com）よりご連絡ください。";
+          "申し訳ありません。お問い合わせフォームは現在準備中です。お急ぎの場合は、公式LINEまたはメール（info@pale-hour.com）よりご連絡ください。";
         status.classList.add("is-shown");
         status.focus && status.focus();
       } else {
