@@ -19,6 +19,16 @@ body.page-sub{
 }
 .page-hero__lead{margin-top:2em; max-width:38em; color:var(--ink-soft); line-height:2.25}
 
+/* Aboutヒーロー：左テキスト＋右に青フルロゴ */
+.page-hero__flex{display:flex; align-items:center; justify-content:space-between; gap:clamp(30px, 5vw, 80px)}
+.page-hero__logo{flex:none; margin:0}
+.page-hero__logo img{width:clamp(150px, 19vw, 225px); height:auto; display:block}
+@media (max-width: 780px){
+  .page-hero__flex{flex-direction:column; align-items:flex-start}
+  .page-hero__logo{margin:26px auto 0}
+  .page-hero__logo img{width:min(180px, 48vw)}
+}
+
 /* 写真つきヒーロー帯（ページによって使用） */
 .photo-band{position:relative; overflow:hidden}
 .photo-band img{width:100%; height:clamp(240px, 44vw, 460px); object-fit:cover}
@@ -54,6 +64,12 @@ body.page-sub{
 .cta-band__bg{position:absolute; inset:0; z-index:-1}
 .cta-band__bg img{width:100%; height:100%; object-fit:cover}
 .cta-band__bg::after{content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(23,36,58,.66), rgba(23,36,58,.5))}
+/* ロゴエンブレムの透かし（オーバーレイの上・文字の下） */
+.cta-band__bg::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:url(../images/common/logo-emblem-white.png) center/auto 76% no-repeat;
+  opacity:.13;
+}
 .cta-band .inner{padding:clamp(84px, 12vw, 150px) var(--gutter)}
 .cta-band h2{font-family:var(--serif-jp); font-size:clamp(1.4rem, 3.4vw, 2rem); line-height:1.9}
 .cta-band p{margin-top:1.4em; color:var(--ink-light-soft); letter-spacing:.1em}
