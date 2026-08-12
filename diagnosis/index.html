@@ -415,7 +415,7 @@ img,svg{display:block; max-width:100%}
    VEIL — Prelude / Loading（フルスクリーン）
    ========================================================================== */
 .veil{position:fixed; inset:0; z-index:90; display:grid; place-items:center; text-align:center; padding:var(--gutter);
-  color:var(--ink-light); opacity:0; visibility:hidden; transition:opacity 1.4s ease, visibility 1.4s}
+  color:var(--ink-light); opacity:0; visibility:hidden; transition:opacity .85s ease, visibility .85s}
 .veil.show{opacity:1; visibility:visible}
 .veil__scene{position:absolute; inset:0; z-index:0;
   background:linear-gradient(to bottom,#0e1626 0%,#18243b 40%,#2a3d5c 60%,#3a5578 63%,#1c2b44 78%,#0d1524 100%)}
@@ -425,11 +425,13 @@ img,svg{display:block; max-width:100%}
   background:repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 11px);
   mask-image:linear-gradient(to bottom, transparent, #000 40%, transparent); opacity:.5; animation:seashift 15s linear infinite}
 .veil__inner{position:relative; z-index:2; width:min(600px,100%)}
-.vstate{grid-area:1/1; opacity:0; visibility:hidden; transform:translateY(12px); transition:opacity 1.3s ease, transform 1.3s ease; pointer-events:none}
+.vstate{grid-area:1/1; opacity:0; visibility:hidden; transform:translateY(12px); transition:opacity .8s ease, transform .8s ease; pointer-events:none}
 .veil__inner{display:grid}
 .vstate.show{opacity:1; visibility:visible; transform:none; pointer-events:auto}
 .vstate p{line-height:2.4; font-weight:300; font-size:clamp(1rem,2.4vw,1.2rem); letter-spacing:.14em; color:#e4ecf4}
 .vstate .lead{font-family:var(--serif); font-size:clamp(1.4rem,4.6vw,2rem); line-height:1.7; letter-spacing:.06em; margin-bottom:1.3em}
+/* 前口上のスキップ案内：待てない人の逃げ道（控えめに置く） */
+.vstate .vskip{margin-top:2.2em; font-size:.68rem; line-height:1.8; letter-spacing:.26em; opacity:.5}
 .vname{font-family:var(--serif); font-weight:400; font-size:clamp(2rem,7vw,3.4rem); letter-spacing:.12em; color:#f2e6d2; opacity:0; text-shadow:0 2px 46px rgba(246,238,224,.45)}
 .vname.show{animation:nameflash 1.5s ease}
 @keyframes nameflash{0%{opacity:0; transform:translateY(8px)}28%,62%{opacity:1; transform:none}100%{opacity:0; transform:translateY(-6px)}}
@@ -444,7 +446,7 @@ img,svg{display:block; max-width:100%}
 /* flash — 光へ進む */
 .flash{position:fixed; inset:0; z-index:95; pointer-events:none; opacity:0;
   background:radial-gradient(circle at 50% 60%, rgba(250,246,238,.95), rgba(246,238,224,.5) 40%, rgba(220,234,243,0) 75%)}
-.flash.go{animation:flash 1.3s ease forwards}
+.flash.go{animation:flash .9s ease forwards}
 @keyframes flash{0%{opacity:0; transform:scale(.6)}45%{opacity:1}100%{opacity:0; transform:scale(1.3)}}
 
 /* film fade — 読み込み時、暗い海から静かに明ける */
@@ -888,6 +890,7 @@ img,svg{display:block; max-width:100%}
       <p class="lead">少しだけ、<br>深呼吸をしてみてください。</p>
       <p>恋愛のことを考える前に、<br>まずは、あなた自身に戻る時間です。</p>
       <div class="breath" aria-hidden="true"></div>
+      <p class="vskip">画面をタップすると、すぐに設問へ進みます</p>
     </div>
     <!-- Loading -->
     <div class="vstate" id="vLoading">
@@ -1016,7 +1019,7 @@ img,svg{display:block; max-width:100%}
   function goLight(cb){
     if(RM){cb&&cb();return;}
     flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go');
-    setTimeout(function(){cb&&cb();},560);
+    setTimeout(function(){cb&&cb();},360);
   }
 
   /* ---------- VEIL ---------- */
@@ -1027,19 +1030,36 @@ img,svg{display:block; max-width:100%}
   function closeVeil(){veil.classList.remove('show'); document.body.style.overflow='';}
   document.getElementById('vClose').addEventListener('click',closeVeil);
 
-  /* ---------- JOURNEY：Hero CTA → Prelude → 診断 ---------- */
+  /* ---------- JOURNEY：Hero CTA → Prelude → 診断 ----------
+     押してから設問が見えるまでが長いと「効かない」と受け取られるため、
+     前口上は3秒までに短縮し、待てない人は画面タップでそのまま設問へ飛べるようにする。 */
+  var journeyTimer=null;
+  function gotoQuiz(){
+    var q=document.getElementById('quiz');
+    q.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
+    /* スムーススクロールが効かない環境（アプリ内ブラウザ等）への保険：
+       届いていなければ即時スクロールでやり直す */
+    setTimeout(function(){
+      if(q.getBoundingClientRect().top>innerHeight*0.6)q.scrollIntoView({block:'start'});
+    },1200);
+  }
+  function endPrelude(){
+    if(journeyTimer){clearTimeout(journeyTimer);journeyTimer=null;}
+    if(!states.prelude.classList.contains('show'))return;
+    closeVeil();
+    setTimeout(gotoQuiz,200);
+  }
   function startJourney(){
     goLight(function(){
       openVeil('prelude');
-      var wait=RM?1400:4600;
-      setTimeout(function(){
-        closeVeil();
-        setTimeout(function(){
-          document.getElementById('quiz').scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
-        },300);
-      },wait);
+      if(journeyTimer)clearTimeout(journeyTimer);
+      journeyTimer=setTimeout(endPrelude, RM?1000:3000);
     });
   }
+  /* 前口上の最中はどこを押しても設問へ（他の状態＝結果画面などは閉じない） */
+  veil.addEventListener('click',function(){
+    if(states.prelude.classList.contains('show'))endPrelude();
+  });
   document.querySelectorAll('[data-journey]').forEach(function(b){
     b.addEventListener('click',function(){
       if(b.dataset.line){ trackLine(); window.open('https://lin.ee/Tr6jRUn','_blank','noopener'); return; }
@@ -1072,20 +1092,39 @@ img,svg{display:block; max-width:100%}
     hint.textContent=form.querySelector('input[name="'+name+'"]:checked')?'':'ひとつ選ぶと、次の問いへ進みます';
   }
   function answeredAll(){for(var i=1;i<=TOTAL;i++){if(!form.querySelector('input[name="q'+i+'"]:checked'))return false;}return true;}
-  form.addEventListener('change',function(e){
-    if(!e.target.matches('input[type=radio]'))return;
-    var lbl=e.target.closest('.opt');
-    slides[step].querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');});
-    if(lbl)lbl.classList.add('sel');
+  /* 選択→次の問いへ。
+     ※changeだけで進めると「前の問いに戻って同じ答えをもう一度押す」ときに
+       値が変わらずchangeが発火せず、何度押しても進まなくなる。
+       そのためclickでも拾い、二重発火はタイマーの張り直しで1回に畳む。 */
+  var advanceTimer=null;
+  function choose(lbl){
+    if(!lbl)return;
+    var input=lbl.querySelector('input[type=radio]');
+    if(!input)return;
+    input.checked=true;
+    var slide=lbl.closest('.qslide')||slides[step];
+    slide.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');});
+    lbl.classList.add('sel');
     hint.textContent='';
     var last=step>=TOTAL-1;
-    setTimeout(function(){
+    if(advanceTimer)clearTimeout(advanceTimer);
+    advanceTimer=setTimeout(function(){
+      advanceTimer=null;
       if(last){ if(answeredAll()) finish(); else nextUnanswered(); }
       else { step++; render(); }
     }, RM?150:620);
+  }
+  form.addEventListener('click',function(e){ choose(e.target.closest('.opt')); });
+  /* キーボード（矢印キー）での選択も拾う */
+  form.addEventListener('change',function(e){
+    if(!e.target.matches('input[type=radio]'))return;
+    choose(e.target.closest('.opt'));
   });
   function nextUnanswered(){for(var i=0;i<TOTAL;i++){if(!form.querySelector('input[name="q'+(i+1)+'"]:checked')){step=i;render();return;}}}
-  back.addEventListener('click',function(){if(step>0){step--;render();}});
+  back.addEventListener('click',function(){
+    if(advanceTimer){clearTimeout(advanceTimer);advanceTimer=null;}
+    if(step>0){step--;render();}
+  });
   render();
 
   /* 集計（表示はしない・内部保持） */

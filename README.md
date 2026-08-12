@@ -59,7 +59,13 @@ Home専用: `assets/css/home.css` + `assets/js/home.js`（空の演出）
 
 ※ `/diagnosis/` 内のjpg（Hero_firstview.jpg等）はLP専用。LPは相対パスで参照しているため削除しない。
 
-**ファビコン（タブアイコン）**：`assets/images/common/` の `favicon.svg`（メイン）／`favicon-32.png`（フォールバック）／`apple-touch-icon.png`（iOS）／`icon-512.png`（予備・PWA等）。デザイン＝Deep Indigo角丸タイル×Pale Blue細線の「水平線と昇る光」。全ページ＋診断LPの`<head>`に設定済み。変更時は3ファイルとも作り直す。
+**ファビコン（タブアイコン）**【2026-07-12差し替え】：`assets/images/common/` の `favicon.svg`（メイン）／`favicon-32.png`（フォールバック）／`apple-touch-icon.png`（iOS）／`icon-512.png`（予備・PWA等）。デザイン＝**正式ロゴ（青エンブレム）×アイボリー角丸背景**。元データ＝`Pale_Hour_LP\logo\背景透明ロゴ_メインカラー.png`（エンブレム部分 y0-1050を切り出し）。全ページ＋診断LPの`<head>`に設定済み。変更時は4ファイルとも作り直す（32pxはアルファ2.6倍ブーストで線を濃くしている）。
+
+**Journalエッセイ5本を公開**【2026-07-13追加】：`journal/`配下に記事フォルダ5つ＝`reply-night/`（返信が来ない夜に・Self・旧テンプレ原稿を正式記事化）／`being-liked/`（彼に嫌われないことより・Love）／`losing-yourself/`（恋愛で自分を見失うのは・Self・不定期の優しさ）／`boundaries/`（境界線を持つということ・Life・荷物の仕分け）／`love-and-career/`（恋愛の先にある私のキャリア・Career）。背骨＝`Funnel_design\12_講義体系`の名前つき仕組み（採点の外注/不定期の優しさ等）。一覧の「準備中」は全てリンク化済。`article-template/`は雛形として残置・**noindex付与**（記事として複製する時はnoindex行を削除）。
+
+**ロゴの追加使用箇所**【2026-07-12追加】：①Aboutページヒーロー右に青フルロゴ＝`assets/images/common/logo-full-blue.png`（HTML=about/index.html `.page-hero__flex`、CSS=pages.css。スマホは縦積み中央）②全CTA帯（about/faq/program/journal/voice）の背景に白エンブレム透かし＝`assets/images/common/logo-emblem-white.png`（pages.cssの`.cta-band__bg::before`・opacity .13・HTML変更不要）
+
+**ヘッダー/フッターのロゴマーク**【2026-07-12追加】：`assets/images/common/logo-mark.png`（`背景透明ロゴ_白.png`のエンブレム部分・アルファ1.9倍ブースト）。HTMLは `<span class="brand__mark">`、描画は `common.css` の **CSSマスク＋currentColor**＝暗いヘッダー/フッターでは白・明るいヘッダーではチャコールに自動追従。※`file://`で開くとマスクがCORSでブロックされロゴが消えるが、本番（同一オリジンhttps）では正常。ローカル確認は `python -m http.server` 経由で。
 
 ## SNSリンク差し替え場所
 
