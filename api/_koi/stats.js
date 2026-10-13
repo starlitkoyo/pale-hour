@@ -22,7 +22,7 @@ export async function countStat(name) {
 
 // 運営者（しろもも）のLINEだけが「集計」で数を見られる。userId はそのまま書かず、ハッシュで照合する
 import crypto from "node:crypto";
-const ADMIN_HASHES = new Set(["57e02bb52c0834f30ce834c91d122b12d24205f9d7d577ba2c1dba3b09e39d96"]);
+const ADMIN_HASHES = new Set(["0c04bc9e845c88e07f0b3d5bd53508d3d7e873a42556d42cf10278c719fca066"]);
 export function isAdmin(userId) {
   return ADMIN_HASHES.has(crypto.createHash("sha256").update(userId).digest("hex"));
 }
