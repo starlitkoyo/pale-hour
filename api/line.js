@@ -9,9 +9,9 @@
 
 import crypto from "node:crypto";
 import Anthropic from "@anthropic-ai/sdk";
-import { Redis } from "@upstash/redis";
 import { waitUntil } from "@vercel/functions";
 import { SYSTEM_PROMPT } from "./_koi/prompt.js";
+import { redis, todayJst, countStat } from "./_koi/stats.js";
 import {
   GREETING, PHASE_RESULTS, PHASE_ALIASES, MENU_REPLIES, RESET_REPLY, LIMIT_REPLY,
   TOO_LONG_REPLY, NON_TEXT_REPLY, REFUSAL_REPLY, ERROR_REPLY,
@@ -25,9 +25,6 @@ const MAX_HISTORY_MESSAGES = 24; // user と assistant を合わせた数（12�
 const HISTORY_TTL_SEC = 60 * 60 * 24 * 30; // 30日で消える（プライバシーポリシーと合わせる）
 const FALLBACK_MODELS = /^claude-(opus|fable|sonnet)-/; // Haiku は server-side fallback 非対応
 
-const redisUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const redisToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-const redis = redisUrl && redisToken ? new Redis({ url: redisUrl, token: redisToken }) : null;
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY?.trim(), timeout: 50_000, maxRetries: 1 });
 
@@ -75,7 +72,10 @@ async function handleEvent(event) {
   if (phaseKey) return reply(event, userId, PHASE_RESULTS[phaseKey]);
 
   const menu = MENU_REPLIES[text];
-  if (menu) return reply(event, userId, menu.map(fillLimit));
+  if (menu) {
+    if (text === "個別相談") await countStat("menu");
+    return reply(event, userId, menu.map(fillLimit));
+  }
 
   if (text === "リセット") {
     if (redis) await redis.del(historyKey(userId));
@@ -85,6 +85,7 @@ async function handleEvent(event) {
   if (text.length > MAX_INPUT_CHARS) return reply(event, userId, TOO_LONG_REPLY);
 
   if (redis && (await countToday(userId)) > DAILY_LIMIT) {
+    await countStat("bridge_limit");
     return reply(event, userId, LIMIT_REPLY.map(fillLimit));
   }
 
@@ -131,6 +132,7 @@ async function handleEvent(event) {
     await redis.set(historyKey(userId), next, { ex: HISTORY_TTL_SEC });
   }
 
+  if (answer.includes("pale-hour.com/api/go")) await countStat("bridge");
   return reply(event, userId, splitForLine(answer));
 }
 
@@ -180,8 +182,7 @@ function historyKey(userId) {
 }
 
 async function countToday(userId) {
-  const day = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10); // 日本時間の日付
-  const key = `koi:count:${userId}:${day}`;
+  const key = `koi:count:${userId}:${todayJst()}`;
   const n = await redis.incr(key);
   if (n === 1) await redis.expire(key, 60 * 60 * 48);
   return n;
