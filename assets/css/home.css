@@ -222,6 +222,9 @@ body.page-home{background:#0E1524}
 .program__more{margin-top:3em}
 @media (max-width: 980px){ .pcard, .pcard--main{grid-column:span 6} }
 @media (max-width: 640px){ .pcard, .pcard--main{grid-column:span 12} }
+.pcard--wide{grid-column:span 12}
+.pcard--half{grid-column:span 6}
+@media (max-width: 640px){ .pcard--half{grid-column:span 12} }
 
 /* ----------------------------------------------------------------------------
    05 Voice（掲載準備中）

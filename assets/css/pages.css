@@ -96,6 +96,7 @@ body.page-sub{
 
 .prg-detail{display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(18px,2.6vw,30px)}
 .prg-detail .pcard{grid-column:auto; background:var(--white)}
+.prg-detail .pcard--full{grid-column:1/-1}
 @media (max-width: 720px){ .prg-detail{grid-template-columns:1fr} }
 
 /* ---------------- Journal 一覧 ---------------- */
