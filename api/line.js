@@ -11,7 +11,7 @@ import crypto from "node:crypto";
 import Anthropic from "@anthropic-ai/sdk";
 import { waitUntil } from "@vercel/functions";
 import { SYSTEM_PROMPT } from "./_koi/prompt.js";
-import { redis, todayJst, countStat } from "./_koi/stats.js";
+import { redis, todayJst, countStat, isAdmin, statsReport } from "./_koi/stats.js";
 import {
   GREETING, PHASE_RESULTS, PHASE_ALIASES, MENU_REPLIES, RESET_REPLY, LIMIT_REPLY,
   TOO_LONG_REPLY, NON_TEXT_REPLY, REFUSAL_REPLY, ERROR_REPLY,
@@ -76,6 +76,8 @@ async function handleEvent(event) {
     if (text === "個別相談") await countStat("menu");
     return reply(event, userId, menu.map(fillLimit));
   }
+
+  if (text === "集計" && isAdmin(userId)) return reply(event, userId, await statsReport(7));
 
   if (text === "リセット") {
     if (redis) await redis.del(historyKey(userId));
