@@ -77,7 +77,16 @@ async function handleEvent(event) {
     return reply(event, userId, menu.map(fillLimit));
   }
 
-  if (text === "集計" && isAdmin(userId)) return reply(event, userId, await statsReport(7));
+  if (text === "集計" && isAdmin(userId)) {
+    let report;
+    try {
+      report = await statsReport(7);
+    } catch (err) {
+      console.error("stats", err);
+      report = [`集計でエラーが出ました：${String(err?.message || err).slice(0, 300)}`];
+    }
+    return reply(event, userId, report);
+  }
 
   if (text === "リセット") {
     if (redis) await redis.del(historyKey(userId));
