@@ -91,14 +91,27 @@ async function handleEvent(event) {
   await startLoading(userId);
 
   const history = redis ? ((await redis.get(historyKey(userId))) ?? []) : [];
-  const messages = [...history, { role: "user", content: text }];
+  let messages = [...history, { role: "user", content: text }];
 
   let response;
   try {
     response = await askClaude(messages);
   } catch (err) {
-    console.error("claude", err);
-    return reply(event, userId, ERROR_REPLY);
+    if (err instanceof Anthropic.BadRequestError) {
+      // 指示文を変えたあとなどに、古い thinking ブロックが弾かれることがある。
+      // 一度だけ、履歴から thinking を外して再送する（文字の会話は残る）
+      console.error("claude 400, retrying without thinking blocks", err.message);
+      messages = stripThinking(messages);
+      try {
+        response = await askClaude(messages);
+      } catch (err2) {
+        console.error("claude retry", err2);
+        return reply(event, userId, ERROR_REPLY);
+      }
+    } else {
+      console.error("claude", err);
+      return reply(event, userId, ERROR_REPLY);
+    }
   }
 
   if (response.stop_reason === "refusal") return reply(event, userId, REFUSAL_REPLY);
@@ -140,6 +153,14 @@ async function askClaude(messages) {
     });
   }
   return anthropic.messages.create(params);
+}
+
+function stripThinking(messages) {
+  return messages.map((m) =>
+    Array.isArray(m.content)
+      ? { ...m, content: m.content.filter((b) => b.type !== "thinking" && b.type !== "redacted_thinking") }
+      : m,
+  );
 }
 
 function normalizePhase(text) {
