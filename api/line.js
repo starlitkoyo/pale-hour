@@ -29,19 +29,21 @@ const redisUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_U
 const redisToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 const redis = redisUrl && redisToken ? new Redis({ url: redisUrl, token: redisToken }) : null;
 
-const anthropic = new Anthropic({ timeout: 50_000, maxRetries: 1 });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY?.trim(), timeout: 50_000, maxRetries: 1 });
 
 export function GET() {
   return new Response("ok");
 }
 
 export async function POST(request) {
-  const secret = process.env.LINE_CHANNEL_SECRET;
-  if (!secret || !process.env.LINE_CHANNEL_ACCESS_TOKEN) {
+  const secret = process.env.LINE_CHANNEL_SECRET?.trim();
+  if (!secret || !lineToken()) {
     return new Response("not configured", { status: 200 });
   }
   const body = await request.text();
   if (!validSignature(body, request.headers.get("x-line-signature"), secret)) {
+    // 値は出さず、長さだけ残す（チャネルシークレットは32文字）
+    console.error("bad signature", { secretLength: secret.length, hasSignature: !!request.headers.get("x-line-signature") });
     return new Response("bad signature", { status: 401 });
   }
   const { events = [] } = JSON.parse(body);
@@ -198,12 +200,16 @@ async function reply(event, userId, texts) {
   }
 }
 
+function lineToken() {
+  return process.env.LINE_CHANNEL_ACCESS_TOKEN?.trim();
+}
+
 async function lineApi(path, payload) {
   const res = await fetch(`https://api.line.me${path}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${lineToken()}`,
     },
     body: JSON.stringify(payload),
   });
