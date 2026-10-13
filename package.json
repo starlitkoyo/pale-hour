@@ -1,0 +1,14 @@
+{
+  "name": "pale-hour",
+  "private": true,
+  "type": "module",
+  "description": "Pale Hour 公式サイト（静的）＋ LINE「恋AI」の webhook（api/line.js）",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
+    "@upstash/redis": "^1.39.0",
+    "@vercel/functions": "^3.10.0"
+  }
+}
