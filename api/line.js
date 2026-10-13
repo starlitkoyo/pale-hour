@@ -77,6 +77,7 @@ async function handleEvent(event) {
     return reply(event, userId, menu.map(fillLimit));
   }
 
+  if (text === "集計" && !isAdmin(userId)) console.log("stats requested by non-admin", userId);
   if (text === "集計" && isAdmin(userId)) {
     let report;
     try {
