@@ -428,6 +428,8 @@ img,svg{display:block; max-width:100%}
 .vstate{grid-area:1/1; opacity:0; visibility:hidden; transform:translateY(12px); transition:opacity .8s ease, transform .8s ease; pointer-events:none}
 .veil__inner{display:grid}
 .vstate.show{opacity:1; visibility:visible; transform:none; pointer-events:auto}
+/* 閉じたベールの中身は押せないようにする（子の visibility:visible が親の hidden を上書きして、透明な前口上が設問の上に残りタップを吸っていた） */
+.veil:not(.show), .veil:not(.show) *{pointer-events:none !important}
 .vstate p{line-height:2.4; font-weight:300; font-size:clamp(1rem,2.4vw,1.2rem); letter-spacing:.14em; color:#e4ecf4}
 .vstate .lead{font-family:var(--serif); font-size:clamp(1.4rem,4.6vw,2rem); line-height:1.7; letter-spacing:.06em; margin-bottom:1.3em}
 /* 前口上のスキップ案内：待てない人の逃げ道（控えめに置く） */
