@@ -435,7 +435,7 @@ img,svg{display:block; max-width:100%}
 /* 前口上のスキップ案内：待てない人の逃げ道（控えめに置く） */
 .vstate .vskip{margin-top:2.2em; font-size:.68rem; line-height:1.8; letter-spacing:.26em; opacity:.5}
 .vname{font-family:var(--serif); font-weight:400; font-size:clamp(2rem,7vw,3.4rem); letter-spacing:.12em; color:#f2e6d2; opacity:0; text-shadow:0 2px 46px rgba(246,238,224,.45)}
-.vname.show{animation:nameflash 1.5s ease}
+.vname.show{animation:nameflash .6s ease}
 @keyframes nameflash{0%{opacity:0; transform:translateY(8px)}28%,62%{opacity:1; transform:none}100%{opacity:0; transform:translateY(-6px)}}
 .breath{width:74px; height:74px; margin:2.4em auto 0; border-radius:50%;
   background:radial-gradient(circle at 50% 55%, var(--dawn-warm), rgba(244,230,207,0) 66%); animation:breathe 5.2s ease-in-out infinite}
@@ -1047,17 +1047,31 @@ img,svg{display:block; max-width:100%}
       if(q.getBoundingClientRect().top>innerHeight*0.6)q.scrollIntoView({block:'start'});
     },1200);
   }
+  /* 前口上が画面を覆っているあいだに、裏で設問まで一気に移動しておく。
+     閉じた瞬間にもう設問が目の前にある＝長いスクロールを待たせない（2026-11-10 表示が遅い指摘） */
+  var jumpTimer=null;
+  function jumpToQuiz(){
+    var q=document.getElementById('quiz');
+    var y=q.getBoundingClientRect().top+scrollY;
+    document.documentElement.style.scrollBehavior='auto';
+    window.scrollTo(0,y);
+    document.documentElement.style.scrollBehavior='';
+  }
   function endPrelude(){
     if(journeyTimer){clearTimeout(journeyTimer);journeyTimer=null;}
+    if(jumpTimer){clearTimeout(jumpTimer);jumpTimer=null;}
     if(!states.prelude.classList.contains('show'))return;
+    jumpToQuiz();
     closeVeil();
-    setTimeout(gotoQuiz,200);
+    setTimeout(function(){ var q=document.getElementById('quiz'); if(Math.abs(q.getBoundingClientRect().top)>innerHeight*0.3) jumpToQuiz(); },120);
   }
   function startJourney(){
     goLight(function(){
       openVeil('prelude');
       if(journeyTimer)clearTimeout(journeyTimer);
-      journeyTimer=setTimeout(endPrelude, RM?1000:3000);
+      if(jumpTimer)clearTimeout(jumpTimer);
+      jumpTimer=setTimeout(jumpToQuiz, RM?100:700);
+      journeyTimer=setTimeout(endPrelude, RM?600:1600);
     });
   }
   /* 前口上の最中はどこを押しても設問へ（他の状態＝結果画面などは閉じない） */
@@ -1116,7 +1130,7 @@ img,svg{display:block; max-width:100%}
       advanceTimer=null;
       if(last){ if(answeredAll()) finish(); else nextUnanswered(); }
       else { step++; render(); }
-    }, RM?150:620);
+    }, RM?150:380);
   }
   form.addEventListener('click',function(e){ choose(e.target.closest('.opt')); });
   /* キーボード（矢印キー）での選択も拾う */
@@ -1145,10 +1159,10 @@ img,svg{display:block; max-width:100%}
     if(RM){ setTimeout(done,400); return; }
     var i=0;
     (function step(){
-      if(i>=PHASES.length){ setTimeout(done,700); return; }
+      if(i>=PHASES.length){ setTimeout(done,250); return; }
       vName.textContent=PHASES[i]; i++;
       vName.classList.remove('show'); void vName.offsetWidth; vName.classList.add('show');
-      setTimeout(step,1450);
+      setTimeout(step,520);
     })();
   }
   function finish(){
@@ -1157,7 +1171,7 @@ img,svg{display:block; max-width:100%}
     var vc=document.getElementById('vCopy'); if(vc) vc.onclick=function(){ try{ navigator.clipboard.writeText(phase).then(function(){ vc.textContent='コピーしました'; }); }catch(_){} };
     goLight(function(){
       openVeil('loading');
-      setTimeout(function(){ runNames(function(){ showState('result'); }); }, RM?700:2600);
+      setTimeout(function(){ runNames(function(){ showState('result'); }); }, RM?300:900);
     });
     var sb=document.getElementById('stickyBtn');
     if(sb){sb.textContent='結果をLINEで受け取る'; sb.dataset.line='1';}
